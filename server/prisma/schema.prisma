@@ -10,3 +10,180 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum UserRole {
+  CUSTOMER
+  VENDOR
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  BLOCKED
+}
+
+enum VendorStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  SUSPENDED
+}
+
+enum ServiceType {
+  REMOTE
+  ONSITE
+  BOTH
+}
+
+enum ServiceStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum BookingStatus {
+  REQUESTED
+  QUOTED
+  CONFIRMED
+  COMPLETED
+  REJECTED
+  CANCELLED
+} 
+
+model User {
+  id         String      @id @default(uuid())
+
+  name       String
+  email      String      @unique
+  password   String
+  phone      String?
+
+  role       UserRole
+  status     UserStatus  @default(ACTIVE)
+
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  vendor     Vendor?
+
+  bookings   Booking[]
+
+  @@map("users")
+}
+
+model Vendor {
+  id                   String        @id @default(uuid())
+
+  userId               String        @unique
+
+  businessName         String
+  businessDescription  String
+
+  address              String
+
+  latitude             Float
+  longitude            Float
+
+  approvalStatus       VendorStatus  @default(PENDING)
+
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+
+  user                 User          @relation(fields: [userId], references: [id])
+
+  services             Service[]
+  bookings             Booking[]
+
+  @@map("vendors")
+}
+
+model Category {
+  id         String     @id @default(uuid())
+
+  name       String     @unique
+
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  services   Service[]
+
+  @@map("categories")
+}
+
+model Service {
+  id            String         @id @default(uuid())
+
+  vendorId      String
+  categoryId    String
+
+  serviceName   String
+  description   String
+
+  price         Decimal
+
+  serviceType   ServiceType
+
+  status        ServiceStatus  @default(ACTIVE)
+
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  vendor        Vendor         @relation(fields: [vendorId], references: [id])
+
+  category      Category       @relation(fields: [categoryId], references: [id])
+
+  images        ServiceImage[]
+
+  bookings      Booking[]
+
+  @@map("services")
+}
+
+model ServiceImage {
+  id          String    @id @default(uuid())
+
+  serviceId   String
+
+  imageUrl    String
+
+  createdAt   DateTime  @default(now())
+
+  service     Service   @relation(fields: [serviceId], references: [id])
+
+  @@map("service_images")
+}
+
+model Booking {
+  id                    String         @id @default(uuid())
+
+  customerId            String
+  vendorId              String
+  serviceId             String
+
+  eventDate             DateTime
+
+  serviceAddress        String
+
+  serviceLatitude       Float
+  serviceLongitude      Float
+
+  distanceKm            Float?
+
+  travelTimeMinutes     Int?
+
+  notes                 String?
+
+  quotedPrice           Decimal?
+
+  status                BookingStatus  @default(REQUESTED)
+
+  createdAt             DateTime       @default(now())
+  updatedAt             DateTime       @updatedAt
+
+  customer              User           @relation(fields: [customerId], references: [id])
+
+  vendor                Vendor         @relation(fields: [vendorId], references: [id])
+
+  service               Service        @relation(fields: [serviceId], references: [id])
+
+  @@map("bookings")
+}
