@@ -31,10 +31,12 @@ export const register = async (req, res) => {
       },
     });
 
+    const { password: _, ...userWithoutPassword } = user;
+
     res.status(201).json({
       success: true,
       message: "User registered successfully",
-      user,
+      user: userWithoutPassword,
     });
   } catch (error) {
     console.error(error);
