@@ -2,13 +2,8 @@ import prisma from "../config/db.js";
 
 export const createService = async (req, res) => {
   try {
-    const {
-      serviceName,
-      description,
-      price,
-      categoryId,
-      serviceType,
-    } = req.body;
+    const { serviceName, description, price, categoryId, serviceType } =
+      req.body;
 
     const userId = req.user.userId;
 
@@ -69,7 +64,7 @@ export const createService = async (req, res) => {
       message: error.message,
     });
   }
-}; 
+};
 
 export const getMyServices = async (req, res) => {
   try {
@@ -93,7 +88,12 @@ export const getMyServices = async (req, res) => {
         vendorId: vendor.id,
       },
       include: {
-        category: true,
+        category: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",
@@ -112,18 +112,62 @@ export const getMyServices = async (req, res) => {
       message: error.message,
     });
   }
-}; 
+};
+
+export const getMyServiceById = async (req, res) => {
+  try {
+    const { serviceId } = req.params;
+
+    const userId = req.user.userId;
+
+    const vendor = await prisma.vendor.findUnique({
+      where: {
+        userId,
+      },
+    });
+
+    const service = await prisma.service.findUnique({
+      where: {
+        id: serviceId,
+      },
+      include: {
+        category: true,
+      },
+    });
+
+    if (!service) {
+      return res.status(404).json({
+        success: false,
+        message: "Service not found",
+      });
+    }
+
+    if (service.vendorId !== vendor.id) {
+      return res.status(403).json({
+        success: false,
+        message: "Unauthorized access",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      service,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 export const updateService = async (req, res) => {
   try {
     const { serviceId } = req.params;
 
-    const {
-      serviceName,
-      description,
-      price,
-      serviceType,
-    } = req.body;
+    const { serviceName, description, price, serviceType } = req.body;
 
     const userId = req.user.userId;
 
@@ -178,9 +222,9 @@ export const updateService = async (req, res) => {
       message: error.message,
     });
   }
-};  
+};
 
-export const deleteService = async (req, res) => {
+export const deactivateService = async (req, res) => {
   try {
     const { serviceId } = req.params;
 
@@ -212,15 +256,75 @@ export const deleteService = async (req, res) => {
       });
     }
 
-    await prisma.service.delete({
+    const updatedService = await prisma.service.update({
       where: {
         id: serviceId,
+      },
+      data: {
+        status: "INACTIVE",
       },
     });
 
     res.status(200).json({
       success: true,
-      message: "Service deleted successfully",
+      message: "Service deactivated successfully",
+      service: updatedService,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const activateService = async (req, res) => {
+  try {
+    const { serviceId } = req.params;
+
+    const userId = req.user.userId;
+
+    const vendor = await prisma.vendor.findUnique({
+      where: {
+        userId,
+      },
+    });
+
+    const service = await prisma.service.findUnique({
+      where: {
+        id: serviceId,
+      },
+    });
+
+    if (!service) {
+      return res.status(404).json({
+        success: false,
+        message: "Service not found",
+      });
+    }
+
+    if (service.vendorId !== vendor.id) {
+      return res.status(403).json({
+        success: false,
+        message: "Unauthorized access",
+      });
+    }
+
+    const updatedService = await prisma.service.update({
+      where: {
+        id: serviceId,
+      },
+      data: {
+        status: "ACTIVE",
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Service activated successfully",
+      service: updatedService,
     });
   } catch (error) {
     console.error(error);
