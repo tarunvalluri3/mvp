@@ -335,3 +335,93 @@ export const activateService = async (req, res) => {
     });
   }
 };
+
+export const getAllServices = async (req, res) => {
+  try {
+    const { categoryId } = req.query;
+
+    const whereClause = {
+      status: "ACTIVE",
+    };
+
+    if (categoryId) {
+      whereClause.categoryId = categoryId;
+    }
+
+    const services = await prisma.service.findMany({
+      where: whereClause,
+      include: {
+        category: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        vendor: {
+          select: {
+            id: true,
+            businessName: true,
+            address: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      services,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const getServiceDetails = async (req, res) => {
+  try {
+    const { serviceId } = req.params;
+
+    const service = await prisma.service.findFirst({
+      where: {
+        id: serviceId,
+        status: "ACTIVE",
+      },
+      include: {
+        category: true,
+        vendor: {
+          include: {
+            user: {
+              select: {
+                name: true,
+                email: true,
+                phone: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!service) {
+      return res.status(404).json({
+        success: false,
+        message: "Service not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      service,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

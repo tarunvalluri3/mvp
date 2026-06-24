@@ -8,6 +8,8 @@ import {
   updateService,
   deactivateService,
   activateService,
+  getAllServices,
+  getServiceDetails,
 } from "../controllers/service.controller.js";
 
 const router = express.Router();
@@ -21,6 +23,10 @@ router.put("/:serviceId", authenticateUser, updateService);
 router.get("/my-services", authenticateUser, getMyServices);
 
 router.get("/my-services/:serviceId", authenticateUser, getMyServiceById);
+
+router.get("/", getAllServices);
+
+router.get("/details/:serviceId", getServiceDetails);
 
 router.put("/:serviceId", authenticateUser, updateService);
 
