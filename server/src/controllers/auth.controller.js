@@ -6,6 +6,13 @@ export const register = async (req, res) => {
   try {
     const { name, email, password, phone, role } = req.body;
 
+    if (!role) {
+      return res.status(400).json({
+        success: false,
+        message: "Role is required",
+      });
+    }
+
     const existingUser = await prisma.user.findUnique({
       where: {
         email,
@@ -50,7 +57,14 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
+
+    if (!role) {
+      return res.status(400).json({
+        success: false,
+        message: "Role is required",
+      });
+    }
 
     const user = await prisma.user.findUnique({
       where: {
@@ -71,6 +85,13 @@ export const login = async (req, res) => {
       return res.status(401).json({
         success: false,
         message: "Invalid credentials",
+      });
+    }
+
+    if (user.role !== role) {
+      return res.status(403).json({
+        success: false,
+        message: `This account is registered as a ${user.role.toLowerCase()}. Please use the correct login page.`,
       });
     }
 
