@@ -1,0 +1,11 @@
+
+.auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px;background:#f6f7f8;}
+.auth-card{width:100%;max-width:460px;background:#fff;padding:40px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.08);}
+.auth-card h2{font-size:28px;margin-bottom:8px;}
+.auth-card p{margin-bottom:24px;color:#6b7280;}
+form{display:flex;flex-direction:column;gap:16px;}
+.submit-btn{width:100%;margin-top:8px;}
+.error{color:#ef4444;font-size:14px;margin:0;}
+.auth-footer{margin-top:24px;text-align:center;font-size:14px;}
+.auth-footer a{color:var(--accent-color);font-weight:600;}
+@media(max-width:576px){.auth-card{padding:24px}.auth-card h2{font-size:24px}}

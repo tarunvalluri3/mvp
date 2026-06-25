@@ -11,7 +11,7 @@ function LandingPage() {
       <nav className="navbar">
         <div className="container navbar-container">
           <Link to="/" className="logo">
-            Servora
+            Expertly
           </Link>
 
           <ul className="nav-menu">
