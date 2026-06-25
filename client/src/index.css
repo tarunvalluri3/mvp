@@ -1,24 +1,311 @@
+/* ============================= */
+/* GOOGLE FONT */
+/* ============================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+/* ============================= */
+/* ROOT VARIABLES */
+/* ============================= */
+
+:root {
+  /* 60 - 30 - 10 */
+
+  --primary-color: #262626;
+  --secondary-color: #f6f7f8;
+  --accent-color: #fd501e;
+
+  --white: #ffffff;
+
+  --text-color: #262626;
+
+  --border-color: #e4e4e7;
+
+  --success-color: #22c55e;
+  --danger-color: #ef4444;
+
+  /* Border Radius */
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  /* Shadows */
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.12);
+
+  /* Animation */
+
+  --transition: 0.3s ease;
+}
+
+/* ============================= */
+/* RESET */
+/* ============================= */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Inter", sans-serif;
-  background: #f6f7f8;
-  color: #262626;
+
+  background: var(--secondary-color);
+
+  color: var(--text-color);
+
+  line-height: 1.6;
+
+  overflow-x: hidden;
+}
+
+img {
+  width: 100%;
+
+  display: block;
 }
 
 a {
   text-decoration: none;
+
   color: inherit;
 }
 
 button {
+  border: none;
+
   cursor: pointer;
+
+  font-family: inherit;
+
+  transition: var(--transition);
 }
 
-img {
-  max-width: 100%;
+input,
+textarea,
+select {
+  width: 100%;
+
+  font-family: inherit;
+
+  outline: none;
+}
+
+/* ============================= */
+/* CONTAINER */
+/* ============================= */
+
+.container {
+  width: 100%;
+
+  max-width: 1280px;
+
+  margin: auto;
+
+  padding: 0 40px;
+}
+
+/* ============================= */
+/* SECTION */
+/* ============================= */
+
+section {
+  padding: 100px 0;
+}
+
+/* ============================= */
+/* TYPOGRAPHY */
+/* ============================= */
+
+/* =============================
+   TYPOGRAPHY
+============================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+p {
+  color: #6b7280;
+  line-height: 1.8;
+}
+
+.small-text {
+  font-size: 14px;
+}
+
+p {
+  font-size: 18px;
+
+  color: #555;
+}
+
+.small-text {
+  font-size: 15px;
+}
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+
+.primary-btn {
+  background: var(--accent-color);
+
+  color: white;
+
+  padding: 14px 28px;
+
+  border-radius: var(--radius-sm);
+
+  font-size: 16px;
+
+  font-weight: 600;
+}
+
+.primary-btn:hover {
+  transform: translateY(-3px);
+
+  box-shadow: var(--shadow-md);
+}
+
+.secondary-btn {
+  background: white;
+
+  color: var(--primary-color);
+
+  border: 1px solid var(--border-color);
+
+  padding: 14px 28px;
+
+  border-radius: var(--radius-sm);
+
+  font-size: 16px;
+
+  font-weight: 600;
+}
+
+.secondary-btn:hover {
+  transform: translateY(-3px);
+
+  box-shadow: var(--shadow-sm);
+}
+
+/* ============================= */
+/* CARD */
+/* ============================= */
+
+.card {
+  background: white;
+
+  border-radius: var(--radius-md);
+
+  padding: 30px;
+
+  box-shadow: var(--shadow-sm);
+
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+
+  box-shadow: var(--shadow-md);
+}
+
+/* ============================= */
+/* INPUT */
+/* ============================= */
+
+.input {
+  height: 54px;
+
+  border: 1px solid var(--border-color);
+
+  border-radius: var(--radius-sm);
+
+  padding: 0 18px;
+
+  font-size: 16px;
+
+  background: white;
+}
+
+.input:focus {
+  border-color: var(--accent-color);
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 992px) {
+  h1 {
+    font-size: 52px;
+  }
+
+  h2 {
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 70px 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  h1 {
+    font-size: 42px;
+  }
+
+  h2 {
+    font-size: 34px;
+  }
+
+  p {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 34px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 22px;
+  }
+
+  p {
+    font-size: 16px;
+  }
 }
