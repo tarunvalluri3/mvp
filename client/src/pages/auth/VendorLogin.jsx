@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -27,13 +26,27 @@ export default function VendorLogin() {
           email: form.email,
           password: form.password,
           role: "VENDOR",
-        }
+        },
       );
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      navigate("/vendor/dashboard");
+      try {
+        await axios.get(`${import.meta.env.VITE_API_URL}/vendors/profile`, {
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        });
+
+        navigate("/vendor/dashboard");
+      } catch (error) {
+        if (error.response?.status === 404) {
+          navigate("/vendor/profile");
+        } else {
+          throw error;
+        }
+      }
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     } finally {
@@ -80,8 +93,7 @@ export default function VendorLogin() {
         </form>
 
         <div className="auth-footer">
-          Don't have an account?{" "}
-          <Link to="/register/vendor">Register</Link>
+          Don't have an account? <Link to="/register/vendor">Register</Link>
         </div>
       </div>
     </div>

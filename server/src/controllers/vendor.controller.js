@@ -55,3 +55,82 @@ export const createVendorProfile = async (req, res) => {
     });
   }
 };
+
+export const getVendorProfile = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    const vendor = await prisma.vendor.findUnique({
+      where: {
+        userId,
+      },
+    });
+
+    if (!vendor) {
+      return res.status(404).json({
+        success: false,
+        message: "Vendor profile not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      vendor,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const updateVendorProfile = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    const { businessName, businessDescription, address, latitude, longitude } =
+      req.body;
+
+    const vendor = await prisma.vendor.findUnique({
+      where: {
+        userId,
+      },
+    });
+
+    if (!vendor) {
+      return res.status(404).json({
+        success: false,
+        message: "Vendor profile not found",
+      });
+    }
+
+    const updatedVendor = await prisma.vendor.update({
+      where: {
+        id: vendor.id,
+      },
+      data: {
+        businessName,
+        businessDescription,
+        address,
+        latitude,
+        longitude,
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Vendor profile updated successfully",
+      vendor: updatedVendor,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
