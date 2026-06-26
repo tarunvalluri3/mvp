@@ -73,9 +73,25 @@ export const getVendorProfile = async (req, res) => {
       });
     }
 
+    const serviceCount = await prisma.service.count({
+      where: {
+        vendorId: vendor.id,
+      },
+    });
+
+    const bookingCount = await prisma.booking.count({
+      where: {
+        vendorId: vendor.id,
+      },
+    });
+
     res.status(200).json({
       success: true,
       vendor,
+      stats: {
+        services: serviceCount,
+        bookings: bookingCount,
+      },
     });
   } catch (error) {
     console.error(error);

@@ -18,10 +18,6 @@ router.post("/", authenticateUser, createService);
 
 router.get("/my-services", authenticateUser, getMyServices);
 
-router.put("/:serviceId", authenticateUser, updateService);
-
-router.get("/my-services", authenticateUser, getMyServices);
-
 router.get("/my-services/:serviceId", authenticateUser, getMyServiceById);
 
 router.get("/", getAllServices);

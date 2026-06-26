@@ -4,32 +4,26 @@ import { authenticateUser } from "../middleware/auth.middleware.js";
 import { authorizeAdmin } from "../middleware/admin.middleware.js";
 
 import {
-  getPendingVendors,
-  approveVendor,
-  rejectVendor,
+  getDashboardStats,
+  getVendors,
+  updateVendorStatus,
 } from "../controllers/admin.controller.js";
 
 const router = express.Router();
 
-router.get(
-  "/vendors/pending",
-  authenticateUser,
-  authorizeAdmin,
-  getPendingVendors,
-);
+/* Dashboard */
+
+router.get("/dashboard", authenticateUser, authorizeAdmin, getDashboardStats);
+
+/* Vendors */
+
+router.get("/vendors", authenticateUser, authorizeAdmin, getVendors);
 
 router.patch(
-  "/vendors/:vendorId/approve",
+  "/vendors/:vendorId/status",
   authenticateUser,
   authorizeAdmin,
-  approveVendor,
-);
-
-router.patch(
-  "/vendors/:vendorId/reject",
-  authenticateUser,
-  authorizeAdmin,
-  rejectVendor,
+  updateVendorStatus,
 );
 
 export default router;
