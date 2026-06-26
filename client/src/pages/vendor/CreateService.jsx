@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import VendorLayout from "../../layouts/VendorLayout";
@@ -7,6 +7,10 @@ import "./CreateService.css";
 
 export default function CreateService() {
   const navigate = useNavigate();
+
+  const { serviceId } = useParams();
+
+  const isEdit = Boolean(serviceId);
 
   const token = localStorage.getItem("token");
 
@@ -26,6 +30,10 @@ export default function CreateService() {
 
   useEffect(() => {
     fetchCategories();
+
+    if (isEdit) {
+      fetchService();
+    }
   }, []);
 
   const fetchCategories = async () => {
@@ -35,6 +43,29 @@ export default function CreateService() {
       );
 
       setCategories(data.categories);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchService = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/services/my-services/${serviceId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      setForm({
+        serviceName: data.service.serviceName,
+        description: data.service.description,
+        categoryId: data.service.categoryId,
+        price: data.service.price,
+        serviceType: data.service.serviceType,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -55,15 +86,27 @@ export default function CreateService() {
     try {
       setLoading(true);
 
-      await axios.post(`${import.meta.env.VITE_API_URL}/services`, form, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      if (isEdit) {
+        await axios.put(
+          `${import.meta.env.VITE_API_URL}/services/${serviceId}`,
+          form,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+      } else {
+        await axios.post(`${import.meta.env.VITE_API_URL}/services`, form, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
 
       navigate("/vendor/services");
     } catch (err) {
-      setError(err.response?.data?.message || "Unable to create service.");
+      setError(err.response?.data?.message || "Unable to save service.");
     } finally {
       setLoading(false);
     }
@@ -75,7 +118,7 @@ export default function CreateService() {
         <div className="page-header">
           <span className="page-tag">Service Management</span>
 
-          <h1>Create New Service</h1>
+          <h1>{isEdit ? "Edit Service" : "Create New Service"}</h1>
 
           <p>
             Add a new service to your business. Approved services will be
@@ -84,7 +127,7 @@ export default function CreateService() {
         </div>
 
         <div className="service-card">
-          <h2>Service Information</h2>
+          <h2>{isEdit ? "Update Service" : "Service Information"}</h2>
 
           <p>Complete the information below to publish a new service.</p>
 
@@ -176,7 +219,13 @@ export default function CreateService() {
               className="primary-btn submit-btn"
               disabled={loading}
             >
-              {loading ? "Creating Service..." : "Create Service"}
+              {loading
+                ? isEdit
+                  ? "Updating Service..."
+                  : "Creating Service..."
+                : isEdit
+                  ? "Update Service"
+                  : "Create Service"}
             </button>
           </form>
         </div>

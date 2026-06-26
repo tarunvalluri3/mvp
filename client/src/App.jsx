@@ -134,6 +134,15 @@ function App() {
         />
 
         <Route
+          path="/vendor/services/:serviceId/edit"
+          element={
+            <ProtectedVendorRoute>
+              <CreateService />
+            </ProtectedVendorRoute>
+          }
+        />
+
+        <Route
           path="/vendor/bookings"
           element={
             <ProtectedVendorRoute>
