@@ -1,0 +1,160 @@
+/* ==========================================
+   PAGE
+========================================== */
+
+.create-service-page {
+  width: 100%;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.page-header {
+  margin-bottom: 28px;
+}
+
+.page-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(253, 80, 30, 0.08);
+  color: var(--accent-color);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.page-header p {
+  max-width: 700px;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ==========================================
+   CARD
+========================================== */
+
+.service-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  width: 60%; 
+}
+
+.service-card h2 {
+  font-size: 20px;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.service-card>p {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+/* ==========================================
+   FORM
+========================================== */
+
+.form-group {
+  margin-bottom: 22px; 
+  width: 100%;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.input {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(253, 80, 30, 0.08);
+}
+
+.textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+.submit-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+}
+
+/* ==========================================
+   ERROR
+========================================== */
+
+.error {
+  margin-bottom: 16px;
+  color: #dc2626;
+  font-size: 13px;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .service-card {
+    padding: 24px;
+    width: 80%;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+}
+
+@media (max-width: 576px) {
+
+  .service-card {
+    padding: 20px;
+    width: 80%;
+  }
+
+}

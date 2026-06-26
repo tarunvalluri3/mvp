@@ -20,6 +20,7 @@ import VendorDashboard from "./pages/vendor/Dashboard";
 import VendorProfile from "./pages/vendor/Profile";
 import VendorServices from "./pages/vendor/Services";
 import VendorBookings from "./pages/vendor/Bookings";
+import CreateService from "./pages/vendor/CreateService";
 
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminVendors from "./pages/admin/Vendors";
@@ -27,6 +28,7 @@ import AdminCategories from "./pages/admin/Categories";
 
 import ProtectedCustomerRoute from "./routes/ProtectedCustomerRoute";
 import ProtectedAdminRoute from "./routes/ProtectedAdminRoute";
+import ProtectedVendorRoute from "./routes/ProtectedVendorRoute";
 
 function App() {
   return (
@@ -95,36 +97,79 @@ function App() {
 
         {/* Vendor */}
 
-        <Route path="/vendor/dashboard" element={<VendorDashboard />} />
+        <Route
+          path="/vendor/dashboard"
+          element={
+            <ProtectedVendorRoute>
+              <VendorDashboard />
+            </ProtectedVendorRoute>
+          }
+        />
 
-        <Route path="/vendor/profile" element={<VendorProfile />} />
+        <Route
+          path="/vendor/profile"
+          element={
+            <ProtectedVendorRoute>
+              <VendorProfile />
+            </ProtectedVendorRoute>
+          }
+        />
 
-        <Route path="/vendor/services" element={<VendorServices />} />
+        <Route
+          path="/vendor/services"
+          element={
+            <ProtectedVendorRoute>
+              <VendorServices />
+            </ProtectedVendorRoute>
+          }
+        />
 
-        <Route path="/vendor/bookings" element={<VendorBookings />} />
+        <Route
+          path="/vendor/services/new"
+          element={
+            <ProtectedVendorRoute>
+              <CreateService />
+            </ProtectedVendorRoute>
+          }
+        />
+
+        <Route
+          path="/vendor/bookings"
+          element={
+            <ProtectedVendorRoute>
+              <VendorBookings />
+            </ProtectedVendorRoute>
+          }
+        />
 
         {/* Admin */}
 
         <Route
           path="/admin/dashboard"
-          element={ 
+          element={
             <ProtectedAdminRoute>
               <AdminDashboard />
             </ProtectedAdminRoute>
           }
         />
 
-        <Route path="/admin/vendors" element={
-          <ProtectedAdminRoute>
-            <AdminVendors />
-          </ProtectedAdminRoute>
-        } />
+        <Route
+          path="/admin/vendors"
+          element={
+            <ProtectedAdminRoute>
+              <AdminVendors />
+            </ProtectedAdminRoute>
+          }
+        />
 
-        <Route path="/admin/categories" element={
-          <ProtectedAdminRoute>
-            <AdminCategories />
-          </ProtectedAdminRoute>
-        } />
+        <Route
+          path="/admin/categories"
+          element={
+            <ProtectedAdminRoute>
+              <AdminCategories />
+            </ProtectedAdminRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

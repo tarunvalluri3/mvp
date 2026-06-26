@@ -38,7 +38,7 @@ export default function VendorSidebar({ open, setOpen }) {
 
           <NavLink to="/vendor/services">
             <FiGrid />
-            <span>Services</span>
+            <span>My Services</span>
           </NavLink>
 
           <NavLink to="/vendor/bookings">
