@@ -1,0 +1,182 @@
+/* ==========================================
+   PAGE
+========================================== */
+
+.customer-book-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* ==========================================
+   CARD
+========================================== */
+
+.customer-book-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.customer-book-header {
+  margin-bottom: 30px;
+}
+
+.customer-book-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(253, 80, 30, 0.08);
+  color: var(--accent-color);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.customer-book-header h1 {
+  font-size: 28px;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.customer-book-header p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ==========================================
+   SELECTED SERVICE
+========================================== */
+
+.selected-service {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.selected-service h3 {
+  font-size: 20px;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.selected-service p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 12px;
+}
+
+.selected-service h2 {
+  font-size: 24px;
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
+/* ==========================================
+   FORM
+========================================== */
+
+.customer-form-group {
+  margin-bottom: 22px;
+}
+
+.customer-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.customer-input {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+  box-sizing: border-box;
+}
+
+.customer-input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(253, 80, 30, 0.08);
+}
+
+.customer-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* ==========================================
+   ERROR
+========================================== */
+
+.customer-error {
+  color: #dc2626;
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+.customer-submit-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent-color);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.customer-submit-btn:hover {
+  opacity: 0.92;
+}
+
+.customer-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .customer-book-page {
+    padding: 24px 16px;
+  }
+
+  .customer-book-card {
+    padding: 24px;
+  }
+
+  .customer-book-header h1 {
+    font-size: 24px;
+  }
+
+  .selected-service h3 {
+    font-size: 18px;
+  }
+
+  .selected-service h2 {
+    font-size: 22px;
+  }
+
+}

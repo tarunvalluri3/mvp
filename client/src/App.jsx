@@ -15,6 +15,7 @@ import Services from "./pages/customer/Services";
 import ServiceDetails from "./pages/customer/ServiceDetails";
 import MyBookings from "./pages/customer/MyBookings";
 import Profile from "./pages/customer/Profile";
+import BookService from "./pages/customer/BookService";
 
 import VendorDashboard from "./pages/vendor/Dashboard";
 import VendorProfile from "./pages/vendor/Profile";
@@ -68,11 +69,29 @@ function App() {
           }
         />
 
-        <Route
+        {/* <Route
           path="/customer/services/:id"
           element={
             <ProtectedCustomerRoute>
               <ServiceDetails />
+            </ProtectedCustomerRoute>
+          }
+        /> */}
+
+        <Route
+          path="/services/:serviceId"
+          element={
+            <ProtectedCustomerRoute>
+              <ServiceDetails />
+            </ProtectedCustomerRoute>
+          }
+        />
+
+        <Route
+          path="/customer/book-service/:serviceId"
+          element={
+            <ProtectedCustomerRoute>
+              <BookService />
             </ProtectedCustomerRoute>
           }
         />
