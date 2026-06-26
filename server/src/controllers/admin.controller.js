@@ -59,12 +59,33 @@ export const getDashboardStats = async (req, res) => {
 
 export const getVendors = async (req, res) => {
   try {
-    const { status } = req.query;
+    const { status, search } = req.query;
 
     const whereClause = {};
 
-    if (status) {
+    // Filter by approval status
+    if (status && status !== "ALL") {
       whereClause.approvalStatus = status;
+    }
+
+    // Search by business name OR owner name
+    if (search) {
+      whereClause.OR = [
+        {
+          businessName: {
+            contains: search,
+            mode: "insensitive",
+          },
+        },
+        {
+          user: {
+            name: {
+              contains: search,
+              mode: "insensitive",
+            },
+          },
+        },
+      ];
     }
 
     const vendors = await prisma.vendor.findMany({
@@ -164,6 +185,48 @@ export const updateVendorStatus = async (req, res) => {
       success: true,
       message: "Vendor status updated successfully",
       vendor: updatedVendor,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const getVendorDetails = async (req, res) => {
+  try {
+    const { vendorId } = req.params;
+
+    const vendor = await prisma.vendor.findUnique({
+      where: {
+        id: vendorId,
+      },
+
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            phone: true,
+          },
+        },
+      },
+    });
+
+    if (!vendor) {
+      return res.status(404).json({
+        success: false,
+        message: "Vendor not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      vendor,
     });
   } catch (error) {
     console.error(error);

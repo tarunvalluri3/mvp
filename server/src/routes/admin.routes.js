@@ -7,6 +7,7 @@ import {
   getDashboardStats,
   getVendors,
   updateVendorStatus,
+  getVendorDetails
 } from "../controllers/admin.controller.js";
 
 const router = express.Router();
@@ -24,6 +25,13 @@ router.patch(
   authenticateUser,
   authorizeAdmin,
   updateVendorStatus,
+); 
+
+router.get(
+  "/vendors/:vendorId",
+  authenticateUser,
+  authorizeAdmin,
+  getVendorDetails
 );
 
 export default router;
