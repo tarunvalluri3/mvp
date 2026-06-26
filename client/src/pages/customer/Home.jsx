@@ -1,6 +1,9 @@
+import CustomerNavbar from "../../components/CustomerNavbar";
+
 const Home = () => {
   return (
-    <div>
+    <div> 
+      <CustomerNavbar />
       <h1>Customer Home</h1>
     </div>
   );

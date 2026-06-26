@@ -1,9 +1,5 @@
-const Dashboard = () => {
-  return (
-    <div>
-      <h1>Vendor Dashboard</h1>
-    </div>
-  );
-};
+import VendorLayout from "../../layouts/VendorLayout";
 
-export default Dashboard;
+export default function Dashboard() {
+  return <VendorLayout>Vendor Dashboard</VendorLayout>;
+}

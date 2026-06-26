@@ -25,6 +25,8 @@ import AdminDashboard from "./pages/admin/Dashboard";
 import AdminVendors from "./pages/admin/Vendors";
 import AdminCategories from "./pages/admin/Categories";
 
+import ProtectedCustomerRoute from "./routes/ProtectedCustomerRoute";
+
 function App() {
   return (
     <BrowserRouter>
@@ -45,15 +47,50 @@ function App() {
 
         {/* Customer */}
 
-        <Route path="/customer/home" element={<Home />} />
+        <Route
+          path="/customer/home"
+          element={
+            <ProtectedCustomerRoute>
+              <Home />
+            </ProtectedCustomerRoute>
+          }
+        />
 
-        <Route path="/customer/services" element={<Services />} />
+        <Route
+          path="/customer/services"
+          element={
+            <ProtectedCustomerRoute>
+              <Services />
+            </ProtectedCustomerRoute>
+          }
+        />
 
-        <Route path="/customer/services/:id" element={<ServiceDetails />} />
+        <Route
+          path="/customer/services/:id"
+          element={
+            <ProtectedCustomerRoute>
+              <ServiceDetails />
+            </ProtectedCustomerRoute>
+          }
+        />
 
-        <Route path="/customer/my-bookings" element={<MyBookings />} />
+        <Route
+          path="/customer/my-bookings"
+          element={
+            <ProtectedCustomerRoute>
+              <MyBookings />
+            </ProtectedCustomerRoute>
+          }
+        />
 
-        <Route path="/customer/profile" element={<Profile />} />
+        <Route
+          path="/customer/profile"
+          element={
+            <ProtectedCustomerRoute>
+              <Profile />
+            </ProtectedCustomerRoute>
+          }
+        />
 
         {/* Vendor */}
 

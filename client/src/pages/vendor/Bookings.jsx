@@ -1,11 +1,5 @@
+import VendorLayout from "../../layouts/VendorLayout";
 
-
-const Bookings = () => {
-  return (
-    <div>
-      <h1>Vendor Bookings</h1>
-    </div>
-  )
+export default function Bookings() {
+  return <VendorLayout>Vendor Bookings</VendorLayout>;
 }
-
-export default Bookings

@@ -1,9 +1,6 @@
-const Services = () => {
-  return (
-    <div>
-      <h1>Vendor Services</h1>
-    </div>
-  );
-};
+import VendorLayout from "../../layouts/VendorLayout";
 
-export default Services;
+export default function Services() {
+  return <VendorLayout>Vendor Services</VendorLayout>;
+}
+

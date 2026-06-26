@@ -4,7 +4,8 @@ import L from "leaflet";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
-import "./Profile.css";
+import "./Profile.css"; 
+import VendorLayout from "../../layouts/VendorLayout";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -81,6 +82,7 @@ export default function Profile() {
   };
 
   return (
+    <VendorLayout>
     <div className="vendor-profile-page">
       <div className="page-header">
         <span className="page-tag">Vendor Onboarding</span>
@@ -211,5 +213,6 @@ export default function Profile() {
         </div>
       </form>
     </div>
+    </VendorLayout>
   );
 }

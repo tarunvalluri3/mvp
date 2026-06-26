@@ -1,0 +1,80 @@
+/* ==========================================
+   LAYOUT
+========================================== */
+
+.vendor-layout {
+  display: flex;
+
+  min-height: 100vh;
+
+  background: #f8f9fb;
+}
+
+/* ==========================================
+   CONTENT
+========================================== */
+
+.vendor-main {
+  flex: 1;
+
+  margin-left: 260px;
+
+  padding: 40px;
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 992px) {
+  .vendor-main {
+    margin-left: 230px;
+
+    padding: 30px;
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+  .vendor-main {
+    margin-left: 0;
+
+    padding: 20px;
+  }
+} 
+
+.mobile-menu-btn {
+  display: none;
+}
+
+@media (max-width:768px){
+
+  .mobile-menu-btn{
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    width:46px;
+    height:46px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#fd501e;
+
+    color:white;
+
+    font-size:24px;
+
+    margin-bottom:24px;
+
+    cursor:pointer;
+  }
+
+}

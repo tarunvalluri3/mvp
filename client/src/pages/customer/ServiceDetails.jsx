@@ -1,6 +1,9 @@
+import CustomerNavbar from "../../components/CustomerNavbar";
+
 const ServiceDetails = () => {
   return (
-    <div>
+    <div> 
+      <CustomerNavbar />
       <h1>Service Details</h1>
     </div>
   );

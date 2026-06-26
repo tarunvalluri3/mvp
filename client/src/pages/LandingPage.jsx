@@ -6,6 +6,14 @@ import "./LandingPage.css";
 function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const customerRoute =
+    user?.role === "CUSTOMER" ? "/customer/services" : "/login/customer";
+
+  const vendorRoute =
+    user?.role === "VENDOR" ? "/vendor/dashboard" : "/register/vendor";
+
   return (
     <div className="landing-page">
       <nav className="navbar">
@@ -32,7 +40,7 @@ function LandingPage() {
             </li>
           </ul>
 
-          <Link to="/register/vendor" className="primary-btn provider-btn">
+          <Link to={vendorRoute} className="secondary-btn">
             Become a Provider
           </Link>
 
@@ -51,7 +59,7 @@ function LandingPage() {
 
             <Link to="/login/customer">Login</Link>
 
-            <Link to="/register/vendor" className="primary-btn">
+            <Link to={vendorRoute} className="secondary-btn">
               Become a Provider
             </Link>
           </div>
@@ -78,11 +86,11 @@ function LandingPage() {
             </p>
 
             <div className="hero-buttons">
-              <Link to="/customer/services" className="primary-btn">
+              <Link to={customerRoute} className="primary-btn">
                 Find Services
               </Link>
 
-              <Link to="/register/vendor" className="secondary-btn">
+              <Link to={vendorRoute} className="secondary-btn">
                 Become a Provider
               </Link>
             </div>
