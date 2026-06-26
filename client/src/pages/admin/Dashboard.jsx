@@ -43,9 +43,11 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="admin-dashboard-page">
-        <h2>Loading Dashboard...</h2>
-      </div>
+      <AdminLayout>
+        <div className="dashboard-loading">
+          <p>Loading dashboard...</p>
+        </div>
+      </AdminLayout>
     );
   }
 
@@ -97,11 +99,11 @@ export default function Dashboard() {
           </div>
 
           <div className="dashboard-card">
-            <h4>Suspended Vendors</h4>
+            <h4>Rejected Vendors</h4>
 
-            <h2>{stats.suspendedVendors}</h2>
+            <h2>{stats.rejectedVendors}</h2>
 
-            <p>Currently suspended</p>
+            <p>Rejected applications</p>
           </div>
         </div>
 
@@ -111,6 +113,12 @@ export default function Dashboard() {
 
         <div className="dashboard-section">
           <h3>Quick Actions</h3>
+
+          {stats.pendingVendors > 0 && (
+            <span className="pending-count">
+              {stats.pendingVendors} Pending
+            </span>
+          )}
 
           <div className="action-grid">
             <Link to="/admin/vendors" className="action-card">

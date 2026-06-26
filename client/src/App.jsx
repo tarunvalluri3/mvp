@@ -26,6 +26,7 @@ import AdminVendors from "./pages/admin/Vendors";
 import AdminCategories from "./pages/admin/Categories";
 
 import ProtectedCustomerRoute from "./routes/ProtectedCustomerRoute";
+import ProtectedAdminRoute from "./routes/ProtectedAdminRoute";
 
 function App() {
   return (
@@ -104,11 +105,26 @@ function App() {
 
         {/* Admin */}
 
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route
+          path="/admin/dashboard"
+          element={ 
+            <ProtectedAdminRoute>
+              <AdminDashboard />
+            </ProtectedAdminRoute>
+          }
+        />
 
-        <Route path="/admin/vendors" element={<AdminVendors />} />
+        <Route path="/admin/vendors" element={
+          <ProtectedAdminRoute>
+            <AdminVendors />
+          </ProtectedAdminRoute>
+        } />
 
-        <Route path="/admin/categories" element={<AdminCategories />} />
+        <Route path="/admin/categories" element={
+          <ProtectedAdminRoute>
+            <AdminCategories />
+          </ProtectedAdminRoute>
+        } />
       </Routes>
     </BrowserRouter>
   );
