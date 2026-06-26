@@ -1,8 +1,12 @@
+import AdminLayout from "../../layouts/AdminLayout";
+
 const Vendors = () => {
   return (
-    <div>
-      <h1>Admin Vendors</h1>
-    </div>
+    <AdminLayout>
+      <div>
+        <h1>Admin Vendors</h1>
+      </div>
+    </AdminLayout>
   );
 };
 

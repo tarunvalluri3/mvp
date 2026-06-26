@@ -1,8 +1,12 @@
+import AdminLayout from "../../layouts/AdminLayout";
+
 const Categories = () => {
   return (
-    <div>
-      <h1>Admin Categories</h1>
-    </div>
+    <AdminLayout>
+      <div>
+        <h1>Admin Categories</h1>
+      </div>
+    </AdminLayout>
   );
 };
 
