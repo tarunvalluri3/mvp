@@ -23,25 +23,19 @@ export default function Bookings() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       setBookings(data.bookings);
-
     } catch (error) {
-
       console.error(error);
-
     } finally {
-
       setLoading(false);
-
     }
   };
 
   const updateStatus = async (bookingId, action) => {
     try {
-
       await axios.patch(
         `${import.meta.env.VITE_API_URL}/bookings/${bookingId}/${action}`,
         {},
@@ -49,163 +43,112 @@ export default function Bookings() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       fetchBookings();
-
     } catch (error) {
-
       console.error(error);
-
     }
   };
 
   return (
     <VendorLayout>
-
       <div className="vendor-bookings-page">
-
         <div className="vendor-page-header">
-
-          <span className="vendor-page-tag">
-            Bookings
-          </span>
+          <span className="vendor-page-tag">Bookings</span>
 
           <h1>Customer Bookings</h1>
 
-          <p>
-            Manage incoming booking requests.
-          </p>
-
+          <p>Manage incoming booking requests.</p>
         </div>
 
         {loading ? (
-
-          <div className="vendor-empty-card">
-            Loading...
-          </div>
-
+          <div className="vendor-empty-card">Loading...</div>
         ) : bookings.length === 0 ? (
-
           <div className="vendor-empty-card">
             <h3>No Bookings</h3>
 
-            <p>
-              Booking requests will appear here.
-            </p>
-
+            <p>Booking requests will appear here.</p>
           </div>
-
         ) : (
+          <div className="vendor-bookings-table-wrapper">
+            <table className="vendor-bookings-table">
+              <thead>
+                <tr>
+                  <th>Customer</th>
 
-          <div className="vendor-bookings-list">
+                  <th>Service</th>
 
-            {bookings.map((booking) => (
+                  <th>Event Date</th>
 
-              <div
-                className="vendor-booking-card"
-                key={booking.id}
-              >
+                  <th>Price</th>
 
-                <div className="vendor-booking-header">
+                  <th>Status</th>
 
-                  <div>
+                  <th>Actions</th>
+                </tr>
+              </thead>
 
-                    <h3>
-                      {booking.service.serviceName}
-                    </h3>
+              <tbody>
+                {bookings.map((booking) => (
+                  <tr key={booking.id}>
+                    <td>
+                      <strong>{booking.customer.name}</strong>
 
-                    <p>
-                      {booking.customer.name}
-                    </p>
+                      <p>{booking.serviceAddress}</p>
+                    </td>
 
-                  </div>
+                    <td>{booking.service.serviceName}</td>
 
-                  <span
-                    className={`vendor-status ${booking.status.toLowerCase()}`}
-                  >
-                    {booking.status}
-                  </span>
+                    <td>
+                      {new Date(booking.eventDate).toLocaleDateString("en-IN")}
+                    </td>
 
-                </div>
+                    <td>
+                      ₹ {Number(booking.service.price).toLocaleString("en-IN")}
+                    </td>
 
-                <div className="vendor-booking-body">
+                    <td>
+                      <span
+                        className={`vendor-status ${booking.status.toLowerCase()}`}
+                      >
+                        {booking.status}
+                      </span>
+                    </td>
 
-                  <p>
+                    <td>
+                      <div className="table-actions">
+                        {booking.status === "REQUESTED" && (
+                          <>
+                            <button
+                              className="accept-btn"
+                              onClick={() => updateStatus(booking.id, "accept")}
+                            >
+                              Accept
+                            </button>
 
-                    <strong>Date:</strong>{" "}
+                            <button
+                              className="reject-btn"
+                              onClick={() => updateStatus(booking.id, "reject")}
+                            >
+                              Reject
+                            </button>
+                          </>
+                        )}
 
-                    {new Date(
-                      booking.eventDate
-                    ).toLocaleDateString("en-IN")}
-
-                  </p>
-
-                  <p>
-
-                    <strong>Address:</strong>{" "}
-
-                    {booking.serviceAddress}
-
-                  </p>
-
-                  <p>
-
-                    <strong>Price:</strong>{" "}
-
-                    ₹{" "}
-
-                    {Number(
-                      booking.service.price
-                    ).toLocaleString("en-IN")}
-
-                  </p>
-
-                </div>
-
-                {booking.status === "REQUESTED" && (
-
-                  <div className="vendor-actions">
-
-                    <button
-                      className="accept-btn"
-                      onClick={() =>
-                        updateStatus(
-                          booking.id,
-                          "accept"
-                        )
-                      }
-                    >
-                      Accept
-                    </button>
-
-                    <button
-                      className="reject-btn"
-                      onClick={() =>
-                        updateStatus(
-                          booking.id,
-                          "reject"
-                        )
-                      }
-                    >
-                      Reject
-                    </button>
-
-                  </div>
-
-                )}
-
-              </div>
-
-            ))}
-
+                        {booking.status !== "REQUESTED" && (
+                          <span className="completed-text">—</span>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-
         )}
-
       </div>
-
     </VendorLayout>
   );
 }

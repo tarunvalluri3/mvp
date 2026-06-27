@@ -2,6 +2,19 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import VendorLayout from "../../layouts/VendorLayout";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from "recharts";
 import "./Dashboard.css";
 
 export default function Dashboard() {
@@ -12,6 +25,9 @@ export default function Dashboard() {
   });
 
   const [loading, setLoading] = useState(true);
+
+  const [recentServices, setRecentServices] = useState([]);
+  const [recentBookings, setRecentBookings] = useState([]);
 
   const token = localStorage.getItem("token");
 
@@ -32,6 +48,8 @@ export default function Dashboard() {
 
       setVendor(data.vendor);
       setStats(data.stats);
+      setRecentServices(data.recentServices);
+      setRecentBookings(data.recentBookings);
     } catch (error) {
       console.error(error);
     } finally {
@@ -46,6 +64,34 @@ export default function Dashboard() {
       </VendorLayout>
     );
   }
+
+  const pieData = [
+    {
+      name: "Active",
+      value: stats.activeServices,
+    },
+    {
+      name: "Inactive",
+      value: stats.inactiveServices,
+    },
+  ];
+
+  const overviewData = [
+    {
+      name: "Services",
+      value: stats.services,
+    },
+    {
+      name: "Bookings",
+      value: stats.bookings,
+    },
+    {
+      name: "Approved",
+      value: vendor?.approvalStatus === "APPROVED" ? 1 : 0,
+    },
+  ];
+
+  const COLORS = ["#16a34a", "#dc2626"];
 
   return (
     <VendorLayout>
@@ -100,33 +146,55 @@ export default function Dashboard() {
             QUICK ACTIONS
         =========================== */}
 
-        <div className="dashboard-section">
-          <h3>Quick Actions</h3>
+        <div className="dashboard-charts">
+          <div className="dashboard-chart-card">
+            <div className="chart-header">
+              <h3>Service Status</h3>
 
-          <div className="action-grid">
-            <Link to="/vendor/services" className="action-card">
-              <h4>Add New Service</h4>
+              <p>Active vs Inactive Services</p>
+            </div>
 
-              <p>Publish a new service for customers.</p>
-            </Link>
+            <ResponsiveContainer width="100%" height={240}>
+              <PieChart>
+                <Pie
+                  data={pieData}
+                  dataKey="value"
+                  nameKey="name"
+                  innerRadius={55}
+                  outerRadius={85}
+                >
+                  {pieData.map((entry, index) => (
+                    <Cell key={index} fill={COLORS[index]} />
+                  ))}
+                </Pie>
 
-            <Link to="/vendor/services" className="action-card">
-              <h4>Manage Services</h4>
+                <Tooltip />
 
-              <p>Edit, activate or deactivate services.</p>
-            </Link>
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
 
-            <Link to="/vendor/bookings" className="action-card">
-              <h4>View Bookings</h4>
+          <div className="dashboard-chart-card">
+            <div className="chart-header">
+              <h3>Business Overview</h3>
 
-              <p>Manage customer booking requests.</p>
-            </Link>
+              <p>Current marketplace summary</p>
+            </div>
 
-            <Link to="/vendor/profile" className="action-card">
-              <h4>Edit Business Profile</h4>
+            <ResponsiveContainer width="80%" height={240}>
+              <BarChart data={overviewData}>
+                {/* <CartesianGrid strokeDasharray="3 3" /> */}
 
-              <p>Update your business information.</p>
-            </Link>
+                <XAxis dataKey="name" />
+
+                <YAxis />
+
+                <Tooltip />
+
+                <Bar dataKey="value" radius={[8, 8, 0, 0]} fill="#111827" />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
@@ -134,16 +202,47 @@ export default function Dashboard() {
             RECENT ACTIVITY
         =========================== */}
 
-        <div className="dashboard-section">
-          <h3>Recent Activity</h3>
+        <div className="dashboard-grid">
+          <div className="dashboard-table-card">
+            <h3>Recent Services</h3>
 
-          <div className="empty-card">
-            <h4>No activity yet</h4>
+            {recentServices.length === 0 ? (
+              <p>No services found.</p>
+            ) : (
+              recentServices.map((service) => (
+                <div className="dashboard-row" key={service.id}>
+                  <div>
+                    <h4>{service.serviceName}</h4>
 
-            <p>
-              Once customers start interacting with your services, recent
-              activity will appear here.
-            </p>
+                    <span>{` Type : ${service.serviceType}`}</span>
+                  </div>
+
+                  <strong>
+                    ₹{Number(service.price).toLocaleString("en-IN")}
+                  </strong>
+                </div>
+              ))
+            )}
+          </div>
+
+          <div className="dashboard-table-card">
+            <h3>Recent Bookings</h3>
+
+            {recentBookings.length === 0 ? (
+              <p>No bookings found.</p>
+            ) : (
+              recentBookings.map((booking) => (
+                <div className="dashboard-row" key={booking.id}>
+                  <div>
+                    <h4>{booking.service.serviceName}</h4>
+
+                    <span>{booking.customer.name}</span>
+                  </div>
+
+                  <span className="status-badge">{booking.status}</span>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

@@ -73,15 +73,71 @@ export const getVendorProfile = async (req, res) => {
       });
     }
 
-    const serviceCount = await prisma.service.count({
+    const [serviceCount, activeServices, inactiveServices, bookingCount] =
+      await Promise.all([
+        prisma.service.count({
+          where: {
+            vendorId: vendor.id,
+          },
+        }),
+
+        prisma.service.count({
+          where: {
+            vendorId: vendor.id,
+            status: "ACTIVE",
+          },
+        }),
+
+        prisma.service.count({
+          where: {
+            vendorId: vendor.id,
+            status: "INACTIVE",
+          },
+        }),
+
+        prisma.booking.count({
+          where: {
+            vendorId: vendor.id,
+          },
+        }),
+      ]);
+
+    const recentServices = await prisma.service.findMany({
       where: {
         vendorId: vendor.id,
       },
+      take: 5,
+      orderBy: {
+        createdAt: "desc",
+      },
+      select: {
+        id: true,
+        serviceName: true,
+        price: true,
+        serviceType: true,
+      },
     });
 
-    const bookingCount = await prisma.booking.count({
+    const recentBookings = await prisma.booking.findMany({
       where: {
         vendorId: vendor.id,
+      },
+      take: 5,
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        customer: {
+          select: {
+            name: true,
+          },
+        },
+
+        service: {
+          select: {
+            serviceName: true,
+          },
+        },
       },
     });
 
@@ -91,7 +147,12 @@ export const getVendorProfile = async (req, res) => {
       stats: {
         services: serviceCount,
         bookings: bookingCount,
+        activeServices,
+        inactiveServices,
       },
+      recentServices,
+
+      recentBookings,
     });
   } catch (error) {
     console.error(error);

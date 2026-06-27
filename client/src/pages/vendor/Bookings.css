@@ -50,7 +50,7 @@
    CARD
 ========================================== */
 
-.vendor-booking-card {
+/* .vendor-booking-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 14px;
@@ -60,8 +60,102 @@
 
 .vendor-booking-card:hover {
   box-shadow: 0 8px 24px rgba(0,0,0,.06);
+} */
+
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.vendor-bookings-table-wrapper{
+
+  background:#fff;
+
+  border:1px solid #e5e7eb;
+
+  border-radius:18px;
+
+  overflow-x:auto;
+
+  box-shadow:0 6px 18px rgba(15,23,42,.05);
+
 }
 
+.vendor-bookings-table{
+
+  width:100%;
+
+  min-width:900px;
+
+  border-collapse:collapse;
+
+}
+
+.vendor-bookings-table thead{
+
+  background:#fafafa;
+
+}
+
+.vendor-bookings-table th{
+
+  padding:16px 20px;
+
+  text-align:left;
+
+  font-size:12px;
+
+  font-weight:600;
+
+  color:#6b7280;
+
+  border-bottom:1px solid #eceff3;
+
+}
+
+.vendor-bookings-table td{
+
+  padding:18px 20px;
+
+  border-bottom:1px solid #f3f4f6;
+
+  font-size:13px;
+
+  vertical-align:middle;
+
+}
+
+.vendor-bookings-table tbody tr:hover{
+
+  background:#fafafa;
+
+}
+
+.vendor-bookings-table strong{
+
+  display:block;
+
+  font-size:14px;
+
+  font-weight:500;
+
+  color:#111827;
+
+}
+
+.vendor-bookings-table td p{
+
+  margin-top:4px;
+
+  font-size:12px;
+
+  color:#6b7280;
+
+}
+
+
+
+ 
 /* ==========================================
    HEADER
 ========================================== */
@@ -88,11 +182,22 @@
    STATUS
 ========================================== */
 
-.vendor-status {
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
+.vendor-status{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:6px 12px;
+
+  border-radius:999px;
+
+  font-size:11px;
+
+  font-weight:500;
+
 }
 
 .vendor-status.requested {
@@ -169,6 +274,34 @@
   background: #b91c1c;
 }
 
+.table-actions{
+
+  display:flex;
+
+  gap:8px;
+
+}
+
+.table-actions button{
+
+  height:34px;
+
+  padding:0 14px;
+
+  border:none;
+
+  border-radius:8px;
+
+  font-size:12px;
+
+  font-weight:500;
+
+  cursor:pointer;
+
+}
+
+
+
 /* ==========================================
    EMPTY
 ========================================== */
@@ -213,6 +346,12 @@
 
   .vendor-actions {
     flex-direction: column;
+  } 
+
+   .vendor-bookings-table{
+
+    min-width:850px;
+
   }
 
 }
