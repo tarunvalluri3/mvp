@@ -121,9 +121,6 @@ export const getVendors = async (req, res) => {
   }
 };
 
-// export const getPendingVendors = async (req, res) => {
-//   try {
-//     const vendors = await prisma.vendor.findMany({
 //       where: {
 //         approvalStatus: "PENDING",
 //       },
@@ -262,6 +259,7 @@ export const getDashboard = async (req, res) => {
       totalBookings,
       recentVendors,
       recentBookings,
+      vendorStatus,
     ] = await Promise.all([
       prisma.vendor.count(),
 
@@ -317,6 +315,13 @@ export const getDashboard = async (req, res) => {
           },
         },
       }),
+      prisma.vendor.groupBy({
+        by: ["approvalStatus"],
+
+        _count: {
+          approvalStatus: true,
+        },
+      }),
     ]);
 
     res.status(200).json({
@@ -333,6 +338,8 @@ export const getDashboard = async (req, res) => {
       recentVendors,
 
       recentBookings,
+
+      vendorStatus,
     });
   } catch (error) {
     console.error(error);
