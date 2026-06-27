@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./VendorLogin.css";
+import PublicNavbar from "../../components/PublicNavbar";
 
 export default function VendorLogin() {
   const navigate = useNavigate();
@@ -54,7 +55,8 @@ export default function VendorLogin() {
     }
   };
 
-  return (
+  return ( 
+    <> <PublicNavbar />
     <div className="auth-page">
       <div className="auth-card">
         <h2>Vendor Login</h2>
@@ -97,5 +99,6 @@ export default function VendorLogin() {
         </div>
       </div>
     </div>
+    </>
   );
 }

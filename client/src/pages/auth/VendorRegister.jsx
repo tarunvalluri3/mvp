@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./VendorRegister.css";
+import PublicNavbar from "../../components/PublicNavbar";
 
 export default function VendorRegister() {
   const navigate = useNavigate();
@@ -48,6 +49,7 @@ export default function VendorRegister() {
   };
 
   return (
+    <> <PublicNavbar />
     <div className="auth-page">
       <div className="auth-card">
         <h2>Become a Service Provider</h2>
@@ -110,5 +112,6 @@ export default function VendorRegister() {
         </div>
       </div>
     </div>
+    </>
   );
 }

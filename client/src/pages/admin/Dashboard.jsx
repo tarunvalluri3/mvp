@@ -1,22 +1,28 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
-import "./Dashboard.css";
 
 import AdminLayout from "../../layouts/AdminLayout";
 
+import "./Dashboard.css";
+
 export default function Dashboard() {
-  const [stats, setStats] = useState({
-    pendingVendors: 0,
-    approvedVendors: 0,
-    rejectedVendors: 0,
-    suspendedVendors: 0,
-    categories: 0,
-  });
+  const token = localStorage.getItem("token");
 
   const [loading, setLoading] = useState(true);
 
-  const token = localStorage.getItem("token");
+  const [dashboard, setDashboard] = useState({
+    stats: {
+      totalVendors: 0,
+      totalCustomers: 0,
+      totalCategories: 0,
+      totalServices: 0,
+      totalBookings: 0,
+    },
+
+    recentVendors: [],
+
+    recentBookings: [],
+  });
 
   useEffect(() => {
     fetchDashboard();
@@ -30,10 +36,10 @@ export default function Dashboard() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
 
-      setStats(data.stats);
+      setDashboard(data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -45,7 +51,7 @@ export default function Dashboard() {
     return (
       <AdminLayout>
         <div className="dashboard-loading">
-          <p>Loading dashboard...</p>
+          Loading Dashboard...
         </div>
       </AdminLayout>
     );
@@ -53,105 +59,134 @@ export default function Dashboard() {
 
   return (
     <AdminLayout>
+
       <div className="admin-dashboard-page">
-        {/* ==========================================
-          HEADER
-      ========================================== */}
 
         <div className="dashboard-header">
-          <span className="dashboard-tag">Administration</span>
 
-          <h1>Marketplace Administration</h1>
+          <span className="dashboard-tag">
+            Administration
+          </span>
+
+          <h1>
+            Marketplace Dashboard
+          </h1>
 
           <p>
-            Manage vendors, categories and monitor the overall marketplace from
-            one central dashboard.
+            Monitor vendors, customers, services and bookings from one place.
           </p>
-        </div>
 
-        {/* ==========================================
-          STATS
-      ========================================== */}
+        </div>
 
         <div className="dashboard-cards">
+
           <div className="dashboard-card">
-            <h4>Pending Vendors</h4>
-
-            <h2>{stats.pendingVendors}</h2>
-
-            <p>Awaiting approval</p>
+            <h4>Total Vendors</h4>
+            <h2>{dashboard.stats.totalVendors}</h2>
           </div>
 
           <div className="dashboard-card">
-            <h4>Approved Vendors</h4>
-
-            <h2>{stats.approvedVendors}</h2>
-
-            <p>Currently active</p>
+            <h4>Total Customers</h4>
+            <h2>{dashboard.stats.totalCustomers}</h2>
           </div>
 
           <div className="dashboard-card">
-            <h4>Categories</h4>
-
-            <h2>{stats.categories}</h2>
-
-            <p>Available categories</p>
+            <h4>Total Services</h4>
+            <h2>{dashboard.stats.totalServices}</h2>
           </div>
 
           <div className="dashboard-card">
-            <h4>Rejected Vendors</h4>
-
-            <h2>{stats.rejectedVendors}</h2>
-
-            <p>Rejected applications</p>
+            <h4>Total Bookings</h4>
+            <h2>{dashboard.stats.totalBookings}</h2>
           </div>
+
+          <div className="dashboard-card">
+            <h4>Total Categories</h4>
+            <h2>{dashboard.stats.totalCategories}</h2>
+          </div>
+
         </div>
 
-        {/* ==========================================
-          QUICK ACTIONS
-      ========================================== */}
+        <div className="dashboard-grid">
 
-        <div className="dashboard-section">
-          <h3>Quick Actions</h3>
+          <div className="dashboard-table-card">
 
-          {stats.pendingVendors > 0 && (
-            <span className="pending-count">
-              {stats.pendingVendors} Pending
-            </span>
-          )}
+            <h3>
+              Recent Vendors
+            </h3>
 
-          <div className="action-grid">
-            <Link to="/admin/vendors" className="action-card">
-              <h4>Review Vendor Applications</h4>
+            {dashboard.recentVendors.length === 0 ? (
 
-              <p>Review vendor profiles and approve or reject applications.</p>
-            </Link>
+              <p>No vendors found.</p>
 
-            <Link to="/admin/categories" className="action-card">
-              <h4>Manage Categories</h4>
+            ) : (
 
-              <p>Create, edit and organize service categories.</p>
-            </Link>
+              dashboard.recentVendors.map((vendor) => (
+
+                <div
+                  className="dashboard-row"
+                  key={vendor.id}
+                >
+
+                  <div>
+
+                    <h4>{vendor.businessName}</h4>
+
+                    <span>{vendor.user.name}</span>
+
+                  </div>
+
+                  <small>{vendor.user.email}</small>
+
+                </div>
+
+              ))
+
+            )}
+
           </div>
+
+          <div className="dashboard-table-card">
+
+            <h3>
+              Recent Bookings
+            </h3>
+
+            {dashboard.recentBookings.length === 0 ? (
+
+              <p>No bookings found.</p>
+
+            ) : (
+
+              dashboard.recentBookings.map((booking) => (
+
+                <div
+                  className="dashboard-row"
+                  key={booking.id}
+                >
+
+                  <div>
+
+                    <h4>{booking.service.serviceName}</h4>
+
+                    <span>{booking.customer.name}</span>
+
+                  </div>
+
+                  <small>{booking.status}</small>
+
+                </div>
+
+              ))
+
+            )}
+
+          </div>
+
         </div>
 
-        {/* ==========================================
-          RECENT ACTIVITY
-      ========================================== */}
-
-        <div className="dashboard-section">
-          <h3>Recent Activity</h3>
-
-          <div className="empty-card">
-            <h4>No recent activity</h4>
-
-            <p>
-              Recent administrative actions will appear here as the platform
-              becomes active.
-            </p>
-          </div>
-        </div>
       </div>
+
     </AdminLayout>
   );
 }

@@ -31,7 +31,7 @@
 .customer-category {
   display: inline-block;
   padding: 6px 12px;
-  background: rgba(253, 80, 30, 0.08);
+  background: rgba(43, 30, 26, 0.08);
   color: var(--accent-color);
   border-radius: 999px;
   font-size: 12px;

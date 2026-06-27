@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./CustomerLogin.css";
+import PublicNavbar from "../../components/PublicNavbar"; 
 
 export default function CustomerLogin() {
   const navigate = useNavigate();
@@ -46,7 +47,8 @@ export default function CustomerLogin() {
     }
   };
 
-  return (
+  return ( 
+    <> <PublicNavbar />  
     <div className="auth-page">
       <div className="auth-card">
         <h2>Welcome Back</h2>
@@ -90,5 +92,6 @@ export default function CustomerLogin() {
         </div>
       </div>
     </div>
+    </>
   );
 }

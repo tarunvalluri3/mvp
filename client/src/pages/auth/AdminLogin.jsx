@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./AdminLogin.css";
+import "./AdminLogin.css"; 
+import PublicNavbar from "../../components/PublicNavbar"; 
+
 
 export default function AdminLogin() {
   const navigate = useNavigate();
@@ -56,7 +58,9 @@ export default function AdminLogin() {
     }
   };
 
-  return (
+  return ( 
+    <>
+    <PublicNavbar />
     <div className="auth-page">
 
       <div className="auth-card">
@@ -124,5 +128,6 @@ export default function AdminLogin() {
       </div>
 
     </div>
+    </>
   );
 }

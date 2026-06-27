@@ -104,36 +104,24 @@ export default function Services() {
           <div className="customer-services-list">
             {filteredServices.map((service) => (
               <div className="customer-service-card" key={service.id}>
-                <div className="customer-card-top">
-                  <span className="category-badge">
-                    {service.category.name}
-                  </span>
-
-                  <span className="price">
-                    ₹ {Number(service.price).toLocaleString("en-IN")}
-                  </span>
-                </div>
+                <span className="customer-category">
+                  {service.category.name}
+                </span>
 
                 <h3>{service.serviceName}</h3>
 
-                <p className="customer-description">
-                  {service.description.length > 120
-                    ? service.description.substring(0, 120) + "..."
-                    : service.description}
-                </p>
+                <p className="customer-vendor">{service.vendor.businessName}</p>
 
-                <div className="customer-service-meta">
-                  <span>{service.vendor.businessName}</span>
+                <div className="customer-card-footer">
+                  <h2>₹ {Number(service.price).toLocaleString("en-IN")}</h2>
 
-                  <span>{service.serviceType}</span>
+                  <Link
+                    to={`/services/${service.id}`}
+                    className="customer-details-btn"
+                  >
+                    Explore →
+                  </Link>
                 </div>
-
-                <Link
-                  to={`/services/${service.id}`}
-                  className="customer-details-btn"
-                >
-                  View Details
-                </Link>
               </div>
             ))}
           </div>

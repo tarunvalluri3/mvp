@@ -4,6 +4,7 @@ import {
   HiOutlineSquares2X2,
   HiOutlineUsers,
   HiOutlineTag,
+  HiOutlineUserGroup,
   HiOutlineArrowLeftOnRectangle,
   HiOutlineBars3,
   HiOutlineXMark,
@@ -29,22 +30,14 @@ export default function AdminLayout({ children }) {
       <header className="mobile-header">
         <h2>Servora</h2>
 
-        <button
-          className="mobile-menu-btn"
-          onClick={() => setMenuOpen(true)}
-        >
+        <button className="mobile-menu-btn" onClick={() => setMenuOpen(true)}>
           <HiOutlineBars3 />
         </button>
       </header>
 
       {/* Sidebar */}
-      <aside
-        className={`admin-sidebar ${menuOpen ? "open" : ""}`}
-      >
-        <button
-          className="close-menu-btn"
-          onClick={() => setMenuOpen(false)}
-        >
+      <aside className={`admin-sidebar ${menuOpen ? "open" : ""}`}>
+        <button className="close-menu-btn" onClick={() => setMenuOpen(false)}>
           <HiOutlineXMark />
         </button>
 
@@ -64,6 +57,17 @@ export default function AdminLayout({ children }) {
           </Link>
 
           <Link
+            to="/admin/customers"
+            onClick={() => setMenuOpen(false)}
+            className={
+              location.pathname.startsWith("/admin/customers") ? "active" : ""
+            }
+          >
+            <HiOutlineUserGroup />
+            Customers
+          </Link>
+
+          <Link
             to="/admin/vendors"
             onClick={() => setMenuOpen(false)}
             className={
@@ -78,9 +82,7 @@ export default function AdminLayout({ children }) {
             to="/admin/categories"
             onClick={() => setMenuOpen(false)}
             className={
-              location.pathname.startsWith("/admin/categories")
-                ? "active"
-                : ""
+              location.pathname.startsWith("/admin/categories") ? "active" : ""
             }
           >
             <HiOutlineTag />
@@ -96,10 +98,7 @@ export default function AdminLayout({ children }) {
 
       {/* Overlay */}
       {menuOpen && (
-        <div
-          className="sidebar-overlay"
-          onClick={() => setMenuOpen(false)}
-        />
+        <div className="sidebar-overlay" onClick={() => setMenuOpen(false)} />
       )}
 
       {/* Main */}

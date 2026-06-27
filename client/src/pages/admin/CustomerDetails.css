@@ -1,0 +1,243 @@
+/* ==========================================
+   PAGE
+========================================== */
+
+.customer-details-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   BACK BUTTON
+========================================== */
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-bottom: 24px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #6b7280;
+
+  transition: 0.25s;
+}
+
+.back-link:hover {
+  color: #111827;
+}
+
+/* ==========================================
+   PROFILE CARD
+========================================== */
+
+.customer-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+
+  background: #fff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 18px;
+
+  padding: 28px;
+
+  margin-bottom: 28px;
+}
+
+.customer-avatar {
+  width: 80px;
+  height: 80px;
+
+  border-radius: 50%;
+
+  background: #f3f4f6;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.customer-avatar svg {
+  font-size: 42px;
+  color: #6b7280;
+}
+
+.customer-profile-card h1 {
+  font-size: 26px;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.customer-profile-card p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ==========================================
+   DETAILS CARD
+========================================== */
+
+.details-card {
+  background: #fff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 18px;
+
+  padding: 28px;
+
+  margin-bottom: 28px;
+}
+
+.details-card h2 {
+  font-size: 18px;
+  color: #111827;
+  margin-bottom: 24px;
+}
+
+/* ==========================================
+   DETAILS GRID
+========================================== */
+
+.details-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 24px;
+}
+
+.details-grid div {
+  display: flex;
+  flex-direction: column;
+}
+
+.details-grid label {
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #9ca3af;
+
+  text-transform: uppercase;
+
+  margin-bottom: 8px;
+
+  letter-spacing: 0.5px;
+}
+
+.details-grid span {
+  font-size: 15px;
+  color: #111827;
+}
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.table-container {
+  overflow-x: auto;
+}
+
+.booking-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.booking-table thead {
+  background: #fafafa;
+}
+
+.booking-table th {
+  padding: 18px 22px;
+
+  text-align: left;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  color: #6b7280;
+
+  border-bottom: 1px solid #eceff3;
+}
+
+.booking-table td {
+  padding: 18px 22px;
+
+  font-size: 14px;
+
+  color: #111827;
+
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.booking-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.booking-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ==========================================
+   STATUS
+========================================== */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 14px;
+
+  border-radius: 999px;
+
+  background: #eefbf2;
+
+  color: #16a34a;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+/* ==========================================
+   EMPTY
+========================================== */
+
+.empty-state {
+  text-align: center;
+
+  padding: 40px;
+
+  color: #6b7280;
+
+  font-size: 14px;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .customer-profile-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-table {
+    min-width: 700px;
+  }
+
+}

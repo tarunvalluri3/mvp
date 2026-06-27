@@ -237,3 +237,191 @@ export const getVendorDetails = async (req, res) => {
     });
   }
 };
+
+export const getDashboard = async (req, res) => {
+  try {
+    const [
+      totalVendors,
+      totalCustomers,
+      totalCategories,
+      totalServices,
+      totalBookings,
+      recentVendors,
+      recentBookings,
+    ] = await Promise.all([
+      prisma.vendor.count(),
+
+      prisma.user.count({
+        where: {
+          role: "CUSTOMER",
+        },
+      }),
+
+      prisma.category.count(),
+
+      prisma.service.count(),
+
+      prisma.booking.count(),
+
+      prisma.vendor.findMany({
+        take: 5,
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          user: {
+            select: {
+              name: true,
+              email: true,
+            },
+          },
+        },
+      }),
+
+      prisma.booking.findMany({
+        take: 5,
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          customer: {
+            select: {
+              name: true,
+            },
+          },
+
+          vendor: {
+            select: {
+              businessName: true,
+            },
+          },
+
+          service: {
+            select: {
+              serviceName: true,
+            },
+          },
+        },
+      }),
+    ]);
+
+    res.status(200).json({
+      success: true,
+
+      stats: {
+        totalVendors,
+        totalCustomers,
+        totalCategories,
+        totalServices,
+        totalBookings,
+      },
+
+      recentVendors,
+
+      recentBookings,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const getCustomers = async (req, res) => {
+  try {
+    const customers = await prisma.user.findMany({
+      where: {
+        role: "CUSTOMER",
+      },
+
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        status: true,
+        createdAt: true,
+      },
+
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      customers,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const getCustomerDetails = async (req, res) => {
+  try {
+    const { customerId } = req.params;
+
+    const customer = await prisma.user.findUnique({
+      where: {
+        id: customerId,
+      },
+
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        status: true,
+        createdAt: true,
+
+        bookings: {
+          include: {
+            service: {
+              select: {
+                serviceName: true,
+                price: true,
+              },
+            },
+
+            vendor: {
+              select: {
+                businessName: true,
+              },
+            },
+          },
+
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
+      },
+    });
+
+    if (!customer) {
+      return res.status(404).json({
+        success: false,
+        message: "Customer not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      customer,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

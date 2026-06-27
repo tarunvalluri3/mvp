@@ -82,7 +82,7 @@
     display:inline-flex;
     width:max-content;
     padding:8px 16px;
-    background:rgba(253,80,30,.08);
+    background:rgba(43, 30, 26, 0.08);
     color:var(--accent-color);
     border-radius:999px;
     font-size:13px;
@@ -162,7 +162,7 @@
     padding:6px 14px;
     margin-bottom:16px;
     border-radius:999px;
-    background:rgba(253,80,30,.08);
+    background:rgba(43, 30, 26, 0.08);
     color:var(--accent-color);
     font-size:12px;
     font-weight:600;

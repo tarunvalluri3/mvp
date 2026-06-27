@@ -1,0 +1,231 @@
+/* ==========================================
+   TABLE CONTAINER
+========================================== */
+
+.table-container{
+
+  background:#ffffff;
+
+  border:1px solid #eceff3;
+
+  border-radius:18px;
+
+  overflow:hidden;
+
+  box-shadow:0 6px 20px rgba(15,23,42,.04);
+
+} 
+
+/* ==========================================
+   CUSTOMER INFO
+========================================== */
+
+.customer-info{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:14px;
+
+}
+
+.customer-avatar{
+
+  width:38px;
+
+  height:38px;
+
+  border-radius:50%;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  background:#f3f4f6;
+
+  color:#111827;
+
+  font-size:13px;
+
+  font-weight:600;
+
+  flex-shrink:0;
+
+}
+
+.customer-info span{
+
+  font-size:14px;
+
+  font-weight:500;
+
+  color:#111827;
+
+}
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.customers-table{
+
+  width:100%;
+
+  border-collapse:collapse;
+
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.customers-table thead{
+
+  background:#fafafa;
+
+}
+
+.customers-table th{
+
+  padding:18px 24px;
+
+  text-align:left;
+
+  font-size:13px;
+
+  font-weight:600;
+
+  color:#6b7280;
+
+  border-bottom:1px solid #eceff3;
+
+  white-space:nowrap;
+
+}
+
+/* ==========================================
+   BODY
+========================================== */
+
+.customers-table td{
+
+  padding:18px 24px;
+
+  font-size:14px;
+
+  color:#111827;
+
+  border-bottom:1px solid #f3f4f6;
+
+  vertical-align:middle;
+
+}
+
+.customers-table tbody tr{
+
+  transition:.2s;
+
+}
+
+.customers-table tbody tr:hover{
+
+  background:#fafafa;
+
+}
+
+.customers-table tbody tr:last-child td{
+
+  border-bottom:none;
+
+}
+
+/* ==========================================
+   STATUS
+========================================== */
+
+.status-badge{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:6px 14px;
+
+  border-radius:999px;
+
+  background:#eefbf2;
+
+  color:#16a34a;
+
+  font-size:12px;
+
+  font-weight:600;
+
+}
+
+/* ==========================================
+   VIEW BUTTON
+========================================== */
+
+.view-btn{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  min-width:80px;
+
+  height:38px;
+
+  border:1px solid #d1d5db;
+
+  border-radius:10px;
+
+  background:#ffffff;
+
+  color:#111827;
+
+  font-size:13px;
+
+  font-weight:500;
+
+  transition:.25s;
+
+}
+
+.view-btn:hover{
+
+  background:#111827;
+
+  color:#ffffff;
+
+  border-color:#111827;
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width:992px){
+
+  .table-container{
+
+    overflow-x:auto;
+
+  }
+
+  .customers-table{
+
+    min-width:850px;
+
+  }
+
+}

@@ -26,6 +26,8 @@ import CreateService from "./pages/vendor/CreateService";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminVendors from "./pages/admin/Vendors";
 import AdminCategories from "./pages/admin/Categories";
+import AdminCustomers from "./pages/admin/Customers";
+import CustomerDetails from "./pages/admin/CustomerDetails";
 
 import ProtectedCustomerRoute from "./routes/ProtectedCustomerRoute";
 import ProtectedAdminRoute from "./routes/ProtectedAdminRoute";
@@ -186,6 +188,24 @@ function App() {
           element={
             <ProtectedAdminRoute>
               <AdminVendors />
+            </ProtectedAdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/customers"
+          element={
+            <ProtectedAdminRoute>
+              <AdminCustomers />
+            </ProtectedAdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/customers/:customerId"
+          element={
+            <ProtectedAdminRoute>
+              <CustomerDetails />
             </ProtectedAdminRoute>
           }
         />

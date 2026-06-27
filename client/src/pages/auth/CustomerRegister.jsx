@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./CustomerRegister.css";
+import "./CustomerRegister.css"; 
+import PublicNavbar from "../../components/PublicNavbar";
 
 export default function CustomerRegister() {
   const navigate = useNavigate();
@@ -41,7 +42,8 @@ export default function CustomerRegister() {
     }
   };
 
-  return (
+  return ( 
+    <> <PublicNavbar />
     <div className="auth-page">
       <div className="auth-card">
         <h2>Create Customer Account</h2>
@@ -99,6 +101,7 @@ export default function CustomerRegister() {
           Already have an account? <Link to="/login/customer">Login</Link>
         </div>
       </div>
-    </div>
+    </div> 
+    </>
   );
 }

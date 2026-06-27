@@ -1,0 +1,249 @@
+/* ==========================================
+   NAVBAR
+========================================== */
+
+.public-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background: #111827;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.public-navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 74px;
+
+  position: relative;
+}
+
+/* ==========================================
+   LOGO
+========================================== */
+
+.public-logo {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+
+  color: #ffffff;
+}
+
+/* ==========================================
+   NAV LINKS
+========================================== */
+
+.public-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+
+  list-style: none;
+}
+
+.public-nav-links a {
+  color: #d1d5db;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  transition: .25s;
+}
+
+.public-nav-links a:hover {
+  color: #ffffff;
+}
+
+/* ==========================================
+   ACTIONS
+========================================== */
+
+.public-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ==========================================
+   LOGIN
+========================================== */
+
+.public-login-dropdown {
+  position: relative;
+}
+
+.public-login-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 11px 18px;
+
+  background: transparent;
+
+  border: 1px solid rgba(255,255,255,.15);
+
+  border-radius: 10px;
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.public-login-btn:hover {
+  background: #1f2937;
+}
+
+/* ==========================================
+   REGISTER
+========================================== */
+
+.public-register-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 20px;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #111827;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition: .25s;
+}
+
+.public-register-btn:hover {
+  background: #f3f4f6;
+}
+
+/* ==========================================
+   DROPDOWN
+========================================== */
+
+.public-dropdown {
+  position: absolute;
+
+  top: 52px;
+  right: 0;
+
+  width: 220px;
+
+  background: #ffffff;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  box-shadow: 0 18px 40px rgba(0,0,0,.18);
+}
+
+.public-dropdown a {
+  display: block;
+
+  padding: 14px 18px;
+
+  color: #374151;
+
+  font-size: 14px;
+
+  transition: .2s;
+}
+
+.public-dropdown a:hover {
+  background: #f9fafb;
+}
+
+/* ==========================================
+   MOBILE BUTTON
+========================================== */
+
+.public-mobile-btn {
+  display: none;
+
+  background: transparent;
+
+  color: #ffffff;
+
+  font-size: 30px;
+}
+
+/* ==========================================
+   MOBILE MENU
+========================================== */
+
+.public-mobile-menu {
+  display: none;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 992px) {
+
+  .public-nav-links,
+  .public-nav-actions {
+    display: none;
+  }
+
+  .public-mobile-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .public-mobile-menu {
+    display: flex;
+    flex-direction: column;
+
+    background: #111827;
+
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+
+  .public-mobile-menu a {
+    padding: 18px 24px;
+
+    color: #f9fafb;
+
+    font-size: 15px;
+
+    border-bottom: 1px solid rgba(255,255,255,.05);
+
+    transition: .2s;
+  }
+
+  .public-mobile-menu a:hover {
+    background: #1f2937;
+  }
+
+  .public-mobile-menu hr {
+    border: none;
+
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+
+}
+
+@media (max-width:768px){
+
+  .public-navbar-container{
+    height:68px;
+  }
+
+  .public-logo{
+    font-size:22px;
+  }
+
+}
