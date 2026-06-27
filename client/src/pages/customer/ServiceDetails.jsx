@@ -19,19 +19,14 @@ export default function ServiceDetails() {
   const fetchService = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/services/details/${serviceId}`
+        `${import.meta.env.VITE_API_URL}/services/details/${serviceId}`,
       );
 
       setService(data.service);
-
     } catch (error) {
-
       console.error(error);
-
     } finally {
-
       setLoading(false);
-
     }
   };
 
@@ -64,90 +59,83 @@ export default function ServiceDetails() {
       <CustomerNavbar />
 
       <div className="customer-details-page">
+        <div className="service-details-layout">
+          {/* LEFT */}
 
-        <div className="customer-details-card">
+          <div className="service-main-card">
+            <span className="customer-category">{service.category.name}</span>
 
-          <div className="customer-details-header">
+            <h1>{service.serviceName}</h1>
 
-            <span className="customer-category">
-              {service.category.name}
-            </span>
+            <h2>₹ {Number(service.price).toLocaleString("en-IN")}</h2>
 
-            <h1>
-              {service.serviceName}
-            </h1>
+            <p className="service-short-description">{service.description}</p>
 
-            <h2>
-              ₹ {Number(service.price).toLocaleString("en-IN")}
-            </h2>
-
+            <Link
+              to={`/customer/book-service/${service.id}`}
+              className="customer-book-btn"
+            >
+              Book this Service →
+            </Link>
           </div>
 
-          <div className="customer-section">
+          {/* RIGHT */}
 
-            <h3>Description</h3>
+          <div className="service-sidebar">
+            <div className="info-card">
+              <h3>Provider Information</h3>
 
-            <p>
-              {service.description}
-            </p>
+              <div className="info-row">
+                <span>Business</span>
 
+                <strong>{service.vendor.businessName}</strong>
+              </div>
+
+              <div className="info-row">
+                <span>Email</span>
+
+                <strong>{service.vendor.user.email}</strong>
+              </div>
+
+              <div className="info-row">
+                <span>Phone</span>
+
+                <strong>{service.vendor.user.phone}</strong>
+              </div>
+
+              <div className="info-row">
+                <span>Address</span>
+
+                <strong>{service.vendor.address}</strong>
+              </div>
+            </div>
+
+            <div className="info-card">
+              <h3>Service Details</h3>
+
+              <div className="info-row">
+                <span>Category</span>
+
+                <strong>{service.category.name}</strong>
+              </div>
+
+              <div className="info-row">
+                <span>Type</span>
+
+                <strong>{service.serviceType}</strong>
+              </div>
+
+              <div className="info-row">
+                <span>Price</span>
+
+                <strong>
+                  ₹ {Number(service.price).toLocaleString("en-IN")}
+                </strong>
+              </div>
+            </div>
           </div>
-
-          <div className="customer-info-grid">
-
-            <div>
-
-              <h4>Business</h4>
-
-              <p>{service.vendor.businessName}</p>
-
-            </div>
-
-            <div>
-
-              <h4>Service Type</h4>
-
-              <p>{service.serviceType}</p>
-
-            </div>
-
-            <div>
-
-              <h4>Address</h4>
-
-              <p>{service.vendor.address}</p>
-
-            </div>
-
-            <div>
-
-              <h4>Vendor Email</h4>
-
-              <p>{service.vendor.user.email}</p>
-
-            </div>
-
-            <div>
-
-              <h4>Phone</h4>
-
-              <p>{service.vendor.user.phone}</p>
-
-            </div>
-
-          </div>
-
-          <Link
-            to={`/customer/book-service/${service.id}`}
-            className="customer-book-btn"
-          >
-            Book Service
-          </Link>
-
         </div>
-
       </div>
-
     </>
   );
 }

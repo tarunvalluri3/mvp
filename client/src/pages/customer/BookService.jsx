@@ -31,7 +31,7 @@ export default function BookService() {
   const fetchService = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/services/details/${serviceId}`
+        `${import.meta.env.VITE_API_URL}/services/details/${serviceId}`,
       );
 
       setService(data.service);
@@ -65,15 +65,12 @@ export default function BookService() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       navigate("/customer/my-bookings");
     } catch (err) {
-      setError(
-        err.response?.data?.message ||
-          "Unable to create booking."
-      );
+      setError(err.response?.data?.message || "Unable to create booking.");
     } finally {
       setLoading(false);
     }
@@ -96,111 +93,101 @@ export default function BookService() {
       <CustomerNavbar />
 
       <div className="customer-book-page">
+        <div className="booking-layout">
+          {/* LEFT */}
 
-        <div className="customer-book-card">
+          <div className="booking-form-card">
+            <div className="customer-book-header">
+              <span className="customer-book-tag">Booking</span>
 
-          <div className="customer-book-header">
+              <h1>Book Service</h1>
 
-            <span className="customer-book-tag">
-              Booking
-            </span>
+              <p>Complete the details below to confirm your booking.</p>
+            </div>
 
-            <h1>Book Service</h1>
+            <form onSubmit={handleSubmit}>
+              <div className="customer-form-group">
+                <label>Event Date</label>
 
-            <p>
-              Complete the booking details below.
-            </p>
+                <input
+                  type="date"
+                  name="eventDate"
+                  className="customer-input"
+                  value={form.eventDate}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
+              <div className="customer-form-group">
+                <label>Service Address</label>
+
+                <textarea
+                  name="serviceAddress"
+                  className="customer-input customer-textarea"
+                  value={form.serviceAddress}
+                  onChange={handleChange}
+                  placeholder="Enter the service location..."
+                  required
+                />
+              </div>
+
+              <div className="customer-form-group">
+                <label>Additional Notes</label>
+
+                <textarea
+                  name="notes"
+                  className="customer-input customer-textarea"
+                  value={form.notes}
+                  onChange={handleChange}
+                  placeholder="Optional notes..."
+                />
+              </div>
+
+              {error && <p className="customer-error">{error}</p>}
+
+              <button className="customer-submit-btn" disabled={loading}>
+                {loading ? "Creating Booking..." : "Confirm Booking"}
+              </button>
+            </form>
           </div>
 
-          <div className="selected-service">
+          {/* RIGHT */}
 
-            <h3>
-              {service.serviceName}
-            </h3>
+          <div className="booking-summary-card">
+            <h3>Booking Summary</h3>
 
-            <p>
-              {service.vendor.businessName}
-            </p>
+            <div className="summary-row">
+              <span>Service</span>
 
-            <h2>
-              ₹ {Number(service.price).toLocaleString("en-IN")}
-            </h2>
+              <strong>{service.serviceName}</strong>
+            </div>
 
+            <div className="summary-row">
+              <span>Provider</span>
+
+              <strong>{service.vendor.businessName}</strong>
+            </div>
+
+            <div className="summary-row">
+              <span>Category</span>
+
+              <strong>{service.category.name}</strong>
+            </div>
+
+            <div className="summary-row">
+              <span>Service Type</span>
+
+              <strong>{service.serviceType}</strong>
+            </div>
+
+            <div className="summary-total">
+              <span>Total Amount</span>
+
+              <h2>₹ {Number(service.price).toLocaleString("en-IN")}</h2>
+            </div>
           </div>
-
-          <form onSubmit={handleSubmit}>
-
-            <div className="customer-form-group">
-
-              <label>
-                Event Date
-              </label>
-
-              <input
-                type="date"
-                name="eventDate"
-                className="customer-input"
-                value={form.eventDate}
-                onChange={handleChange}
-                required
-              />
-
-            </div>
-
-            <div className="customer-form-group">
-
-              <label>
-                Service Address
-              </label>
-
-              <textarea
-                name="serviceAddress"
-                className="customer-input customer-textarea"
-                placeholder="Enter the complete address..."
-                value={form.serviceAddress}
-                onChange={handleChange}
-                required
-              />
-
-            </div>
-
-            <div className="customer-form-group">
-
-              <label>
-                Additional Notes
-              </label>
-
-              <textarea
-                name="notes"
-                className="customer-input customer-textarea"
-                placeholder="Any special instructions..."
-                value={form.notes}
-                onChange={handleChange}
-              />
-
-            </div>
-
-            {error && (
-              <p className="customer-error">
-                {error}
-              </p>
-            )}
-
-            <button
-              type="submit"
-              className="customer-submit-btn"
-              disabled={loading}
-            >
-              {loading
-                ? "Creating Booking..."
-                : "Confirm Booking"}
-            </button>
-
-          </form>
-
         </div>
-
       </div>
     </>
   );
