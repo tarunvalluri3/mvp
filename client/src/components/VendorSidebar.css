@@ -11,7 +11,7 @@
   width: 260px;
   height: 100vh;
 
-  background: #fd501e;
+  background: black;
 
   display: flex;
   flex-direction: column;
@@ -97,13 +97,13 @@
 .sidebar-menu a.active {
   background: white;
 
-  color: #fd501e;
+  color: black;
 
   font-weight: 600;
 }
 
 .sidebar-menu a.active svg {
-  color: #fd501e;
+  color: black;
 }
 
 /* ==========================================

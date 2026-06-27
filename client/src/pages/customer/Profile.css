@@ -1,0 +1,310 @@
+/* ==========================================
+   PAGE
+========================================== */
+
+.customer-profile-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+  background: #f8f9fb;
+  min-height: calc(100vh - 72px);
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.customer-profile-header {
+  margin-bottom: 30px;
+}
+
+.customer-profile-header h1 {
+  font-size: 28px;
+  color: #111827;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.customer-profile-header p {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.7;
+}
+
+/* ==========================================
+   PROFILE CARD
+========================================== */
+
+.customer-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 18px;
+
+  padding: 28px;
+
+  margin-bottom: 28px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.customer-profile-avatar {
+  width: 90px;
+  height: 90px;
+
+  border-radius: 50%;
+
+  background: rgba(253, 80, 30, 0.08);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: black;
+
+  font-size: 56px;
+
+  flex-shrink: 0;
+}
+
+.customer-profile-info h2 {
+  font-size: 24px;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.customer-profile-info span {
+  display: inline-block;
+
+  padding: 5px 12px;
+
+  background: #f3f4f6;
+
+  border-radius: 999px;
+
+  color: #374151;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  margin-bottom: 12px;
+}
+
+.customer-profile-info p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ==========================================
+   FORM CARD
+========================================== */
+
+.customer-profile-form-card {
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 18px;
+
+  padding: 30px;
+
+  margin-bottom: 28px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================
+   FORM HEADER
+========================================== */
+
+.customer-profile-form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 30px;
+}
+
+.customer-profile-form-header h3 {
+  font-size: 20px;
+  color: #111827;
+}
+
+/* ==========================================
+   GRID
+========================================== */
+
+.customer-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.customer-profile-full {
+  grid-column: 1 / -1;
+}
+
+/* ==========================================
+   INPUTS
+========================================== */
+
+.customer-profile-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #374151;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.customer-profile-input {
+  width: 100%;
+
+  padding: 13px 15px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: .2s;
+
+  box-sizing: border-box;
+}
+
+.customer-profile-input:focus {
+  border-color: var(--accent-color);
+
+  box-shadow: 0 0 0 3px rgba(253, 80, 30, 0.08);
+}
+
+.customer-profile-input:disabled {
+  background: #f3f4f6;
+
+  color: #6b7280;
+
+  cursor: not-allowed;
+}
+
+.customer-profile-textarea {
+  min-height: 110px;
+
+  resize: vertical;
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.customer-profile-form-card .primary-btn {
+  padding: 12px 22px;
+}
+
+.customer-profile-form-card:last-child .primary-btn {
+  margin-top: 28px;
+
+  width: 100%;
+}
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+.customer-profile-success {
+  margin-top: 20px;
+
+  color: #16a34a;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.customer-profile-error {
+  margin-top: 20px;
+
+  color: #dc2626;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 992px) {
+
+  .customer-profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .customer-profile-full {
+    grid-column: auto;
+  }
+
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .customer-profile-page {
+    padding: 24px 16px 40px;
+  }
+
+  .customer-profile-header h1 {
+    font-size: 24px;
+  }
+
+  .customer-profile-card {
+    flex-direction: column;
+
+    text-align: center;
+
+    padding: 24px;
+  }
+
+  .customer-profile-avatar {
+    width: 80px;
+    height: 80px;
+
+    font-size: 50px;
+  }
+
+  .customer-profile-info h2 {
+    font-size: 22px;
+  }
+
+  .customer-profile-form-card {
+    padding: 22px;
+  }
+
+  .customer-profile-form-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .customer-profile-form-card .primary-btn {
+    width: 100%;
+  }
+
+}

@@ -97,7 +97,7 @@
 }
 
 .category-badge {
-  background: rgba(253, 80, 30, .08);
+  background: rgba(43, 30, 26, 0.08);
   color: var(--accent-color);
   padding: 5px 12px;
   border-radius: 20px;

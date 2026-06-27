@@ -19,7 +19,7 @@
 
   padding: 6px 14px;
 
-  background: rgba(253, 80, 30, 0.08);
+  background: rgba(43, 30, 26, 0.08);
 
   color: var(--accent-color);
 
@@ -159,7 +159,7 @@
 
   transform: translateY(-3px);
 
-  box-shadow: 0 14px 30px rgba(253, 80, 30, 0.08);
+  box-shadow: 0 14px 30px rgba(43, 30, 26, 0.08);;
 }
 
 .action-card h4 {
