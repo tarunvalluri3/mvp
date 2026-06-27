@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import AdminLayout from "../../layouts/AdminLayout";
 import "./Vendors.css";
 
@@ -13,10 +14,6 @@ export default function Vendors() {
   const [search, setSearch] = useState("");
 
   const [status, setStatus] = useState("ALL");
-
-  const [selectedVendor, setSelectedVendor] = useState(null);
-
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     fetchVendors();
@@ -51,25 +48,6 @@ export default function Vendors() {
       console.error(error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const viewVendor = async (vendorId) => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/admin/vendors/${vendorId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      setSelectedVendor(data.vendor);
-
-      setShowModal(true);
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -197,198 +175,18 @@ export default function Vendors() {
 
                     <td>
                       <div className="action-buttons">
-                        {vendor.approvalStatus === "PENDING" && (
-                          <>
-                            <button
-                              className="view-btn"
-                              onClick={() => viewVendor(vendor.id)}
-                            >
-                              View
-                            </button>
-                            <button
-                              className="approve-btn"
-                              onClick={() =>
-                                updateStatus(vendor.id, "APPROVED")
-                              }
-                            >
-                              Approve
-                            </button>
-
-                            <button
-                              className="reject-btn"
-                              onClick={() =>
-                                updateStatus(vendor.id, "REJECTED")
-                              }
-                            >
-                              Reject
-                            </button>
-                          </>
-                        )}
-
-                        {vendor.approvalStatus === "APPROVED" && (
-                          <button
-                            className="suspend-btn"
-                            onClick={() => updateStatus(vendor.id, "SUSPENDED")}
-                          >
-                            Suspend
-                          </button>
-                        )}
-
-                        {(vendor.approvalStatus === "REJECTED" ||
-                          vendor.approvalStatus === "SUSPENDED") && (
-                          <button
-                            className="approve-btn"
-                            onClick={() => updateStatus(vendor.id, "APPROVED")}
-                          >
-                            Approve
-                          </button>
-                        )}
+                        <Link
+                          to={`/admin/vendors/${vendor.id}`}
+                          className="view-btn"
+                        >
+                          View
+                        </Link>
                       </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            {showModal && selectedVendor && (
-              <div className="vendor-modal-overlay">
-                <div className="vendor-modal">
-                  <h2>Business Details</h2>
-
-                  <div className="modal-grid">
-                    <div>
-                      <label>Business Name</label>
-
-                      <p>{selectedVendor.businessName}</p>
-                    </div>
-
-                    <div>
-                      <label>Owner</label>
-
-                      <p>{selectedVendor.user.name}</p>
-                    </div>
-
-                    <div>
-                      <label>Email</label>
-
-                      <p>{selectedVendor.user.email}</p>
-                    </div>
-
-                    <div>
-                      <label>Phone</label>
-
-                      <p>{selectedVendor.user.phone}</p>
-                    </div>
-
-                    <div>
-                      <label>Address</label>
-
-                      <p>{selectedVendor.address}</p>
-                    </div>
-
-                    <div>
-                      <label>Status</label>
-
-                      <p>{selectedVendor.approvalStatus}</p>
-                    </div>
-
-                    <div className="full-width">
-                      <label>Description</label>
-
-                      <p>{selectedVendor.businessDescription}</p>
-                    </div>
-
-                    <div className="full-width">
-                      <label>Business Location</label>
-
-                      <div className="vendor-map">
-                        <iframe
-                          title="Vendor Location"
-                          width="100%"
-                          height="220"
-                          loading="lazy"
-                          style={{
-                            border: 0,
-                            borderRadius: "12px",
-                          }}
-                          src={`https://www.openstreetmap.org/export/embed.html?bbox=${
-                            selectedVendor.longitude - 0.01
-                          },${selectedVendor.latitude - 0.01},${
-                            selectedVendor.longitude + 0.01
-                          },${
-                            selectedVendor.latitude + 0.01
-                          }&layer=mapnik&marker=${
-                            selectedVendor.latitude
-                          },${selectedVendor.longitude}`}
-                        />
-                      </div>
-
-                      <p className="coordinates">
-                        {selectedVendor.latitude.toFixed(6)},{" "}
-                        {selectedVendor.longitude.toFixed(6)}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="modal-actions">
-                    {selectedVendor.approvalStatus === "PENDING" && (
-                      <>
-                        <button
-                          className="approve-btn"
-                          onClick={async () => {
-                            await updateStatus(selectedVendor.id, "APPROVED");
-                            setShowModal(false);
-                          }}
-                        >
-                          Approve
-                        </button>
-
-                        <button
-                          className="reject-btn"
-                          onClick={async () => {
-                            await updateStatus(selectedVendor.id, "REJECTED");
-                            setShowModal(false);
-                          }}
-                        >
-                          Reject
-                        </button>
-                      </>
-                    )}
-
-                    {selectedVendor.approvalStatus === "APPROVED" && (
-                      <button
-                        className="suspend-btn"
-                        onClick={async () => {
-                          await updateStatus(selectedVendor.id, "SUSPENDED");
-                          setShowModal(false);
-                        }}
-                      >
-                        Suspend
-                      </button>
-                    )}
-
-                    {(selectedVendor.approvalStatus === "REJECTED" ||
-                      selectedVendor.approvalStatus === "SUSPENDED") && (
-                      <button
-                        className="approve-btn"
-                        onClick={async () => {
-                          await updateStatus(selectedVendor.id, "APPROVED");
-                          setShowModal(false);
-                        }}
-                      >
-                        Approve
-                      </button>
-                    )}
-
-                    <button
-                      className="secondary-btn"
-                      onClick={() => setShowModal(false)}
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         )}
       </div>

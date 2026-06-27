@@ -1,0 +1,333 @@
+/* ==========================================
+   PAGE
+========================================== */
+
+.vendor-details-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   BACK LINK
+========================================== */
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-bottom: 24px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  color: #6b7280;
+
+  transition: 0.25s;
+}
+
+.back-link:hover {
+  color: #111827;
+}
+
+/* ==========================================
+   PROFILE CARD
+========================================== */
+
+.vendor-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+
+  background: #fff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 18px;
+
+  padding: 28px;
+
+  margin-bottom: 28px;
+}
+
+.vendor-avatar {
+  width: 82px;
+  height: 82px;
+
+  border-radius: 50%;
+
+  background: #f3f4f6;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vendor-avatar svg {
+  font-size: 38px;
+  color: #6b7280;
+}
+
+.vendor-profile-card h1 {
+  font-size: 26px;
+  font-weight: 700;
+
+  color: #111827;
+
+  margin-bottom: 6px;
+}
+
+.vendor-profile-card p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ==========================================
+   CARD
+========================================== */
+
+.details-card {
+  background: #fff;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 18px;
+
+  padding: 28px;
+
+  margin-bottom: 28px;
+}
+
+.details-card h2 {
+  font-size: 18px;
+  font-weight: 600;
+
+  color: #111827;
+
+  margin-bottom: 24px;
+}
+
+/* ==========================================
+   GRID
+========================================== */
+
+.details-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 24px;
+}
+
+.details-grid div {
+  display: flex;
+  flex-direction: column;
+}
+
+.details-grid label {
+  font-size: 12px;
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: .5px;
+
+  color: #9ca3af;
+
+  margin-bottom: 8px;
+}
+
+.details-grid span {
+  font-size: 15px;
+  color: #111827;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.table-container {
+  overflow-x: auto;
+}
+
+.services-table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.services-table thead {
+  background: #fafafa;
+}
+
+.services-table th {
+  padding: 18px 22px;
+
+  text-align: left;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  color: #6b7280;
+
+  border-bottom: 1px solid #eceff3;
+}
+
+.services-table td {
+  padding: 18px 22px;
+
+  font-size: 14px;
+
+  color: #111827;
+
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.services-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.services-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ==========================================
+   STATUS
+========================================== */
+
+.status-badge {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 14px;
+
+  border-radius: 999px;
+
+  background: #eefbf2;
+
+  color: #16a34a;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+/* ==========================================
+   EMPTY
+========================================== */
+
+.empty-state {
+  text-align: center;
+
+  padding: 50px 20px;
+
+  color: #6b7280;
+
+  font-size: 14px;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .vendor-profile-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-table {
+    min-width: 760px;
+  }
+
+} 
+
+/* ==========================================
+   ACTIONS
+========================================== */
+
+.vendor-actions{
+
+  display:flex;
+
+  gap:12px;
+
+  margin-top:18px;
+
+  flex-wrap:wrap;
+
+}
+
+.approve-btn,
+.reject-btn,
+.suspend-btn{
+
+  padding:10px 20px;
+
+  border:none;
+
+  border-radius:10px;
+
+  font-size:14px;
+
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:.25s;
+
+}
+
+.approve-btn{
+
+  background:#111827;
+
+  color:#fff;
+
+}
+
+.approve-btn:hover{
+
+  opacity:.9;
+
+}
+
+.reject-btn{
+
+  background:#dc2626;
+
+  color:#fff;
+
+}
+
+.reject-btn:hover{
+
+  background:#b91c1c;
+
+}
+
+.suspend-btn{
+
+  background:#f59e0b;
+
+  color:#fff;
+
+}
+
+.suspend-btn:hover{
+
+  background:#d97706;
+
+}

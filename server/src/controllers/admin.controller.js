@@ -214,6 +214,20 @@ export const getVendorDetails = async (req, res) => {
             phone: true,
           },
         },
+
+        services: {
+          include: {
+            category: {
+              select: {
+                name: true,
+              },
+            },
+          },
+
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
       },
     });
 

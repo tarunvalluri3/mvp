@@ -93,14 +93,14 @@ export default function Customers() {
                   <tr key={customer.id}>
                     <td>
                       <div className="customer-info">
-                        <div className="customer-avatar">
+                        {/* <div className="customer-avatar">
                           {customer.name
                             .split(" ")
                             .map((word) => word[0])
                             .join("")
                             .substring(0, 2)
                             .toUpperCase()}
-                        </div>
+                        </div> */}
 
                         <span>{customer.name}</span>
                       </div>
