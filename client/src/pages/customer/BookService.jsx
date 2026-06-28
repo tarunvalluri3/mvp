@@ -5,6 +5,8 @@ import axios from "axios";
 import CustomerNavbar from "../../components/CustomerNavbar";
 import "./BookService.css";
 
+import GooglePlaceAutocomplete from "../../components/GooglePlaceAutocomplete";
+
 export default function BookService() {
   const { serviceId } = useParams();
 
@@ -13,6 +15,19 @@ export default function BookService() {
   const token = localStorage.getItem("token");
 
   const [service, setService] = useState(null);
+
+  const [bookingMode, setBookingMode] = useState(
+    service?.serviceType === "ONLINE" ? "ONLINE" : "ONSITE",
+  );
+
+  const [customerLocation, setCustomerLocation] = useState({
+    latitude: null,
+    longitude: null,
+  });
+
+  const [distance, setDistance] = useState(0);
+
+  const [travelCharge, setTravelCharge] = useState(0);
 
   const [loading, setLoading] = useState(false);
 
@@ -35,10 +50,52 @@ export default function BookService() {
       );
 
       setService(data.service);
+
+      if (data.service.serviceType === "ONLINE") {
+        setBookingMode("ONLINE");
+      }
+
+      if (data.service.serviceType === "ONSITE") {
+        setBookingMode("ONSITE");
+      }
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (
+      bookingMode !== "ONSITE" ||
+      !service ||
+      !customerLocation.latitude ||
+      !customerLocation.longitude
+    ) {
+      setDistance(0);
+      setTravelCharge(0);
+      return;
+    }
+
+    const vendor = new window.google.maps.LatLng(
+      service.vendor.latitude,
+      service.vendor.longitude,
+    );
+
+    const customer = new window.google.maps.LatLng(
+      customerLocation.latitude,
+      customerLocation.longitude,
+    );
+
+    const meters = window.google.maps.geometry.spherical.computeDistanceBetween(
+      vendor,
+      customer,
+    );
+
+    const km = meters / 1000;
+
+    setDistance(km);
+
+    setTravelCharge(Math.ceil(km * 10));
+  }, [customerLocation, bookingMode, service]);
 
   const handleChange = (e) => {
     setForm({
@@ -118,7 +175,7 @@ export default function BookService() {
                   required
                 />
               </div>
-
+              {/* 
               <div className="customer-form-group">
                 <label>Service Address</label>
 
@@ -130,7 +187,55 @@ export default function BookService() {
                   placeholder="Enter the service location..."
                   required
                 />
-              </div>
+              </div> */}
+
+              {service.serviceType === "BOTH" && (
+                <div className="customer-form-group">
+                  <label>Service Mode</label>
+
+                  <div className="service-mode-options">
+                    <label>
+                      <input
+                        type="radio"
+                        value="ONLINE"
+                        checked={bookingMode === "ONLINE"}
+                        onChange={() => setBookingMode("ONLINE")}
+                      />
+                      Online
+                    </label>
+
+                    <label>
+                      <input
+                        type="radio"
+                        value="ONSITE"
+                        checked={bookingMode === "ONSITE"}
+                        onChange={() => setBookingMode("ONSITE")}
+                      />
+                      At My Location
+                    </label>
+                  </div>
+                </div>
+              )}
+              {bookingMode === "ONSITE" && (
+                <div className="customer-form-group">
+                  <label>Service Address</label>
+
+                  <GooglePlaceAutocomplete
+                    placeholder="Search your location..."
+                    onPlaceSelect={(place) => {
+                      setForm((prev) => ({
+                        ...prev,
+                        serviceAddress: place.address,
+                      }));
+
+                      setCustomerLocation({
+                        latitude: place.latitude,
+                        longitude: place.longitude,
+                      });
+                    }}
+                  />
+                </div>
+              )}
 
               <div className="customer-form-group">
                 <label>Additional Notes</label>
@@ -181,10 +286,35 @@ export default function BookService() {
               <strong>{service.serviceType}</strong>
             </div>
 
+            <div className="summary-row">
+              <span>Service Price</span>
+
+              <strong>₹ {Number(service.price).toLocaleString("en-IN")}</strong>
+            </div>
+
+            {bookingMode === "ONSITE" && (
+              <>
+                <div className="summary-row">
+                  <span>Distance</span>
+
+                  <strong>{distance.toFixed(2)} km</strong>
+                </div>
+
+                <div className="summary-row">
+                  <span>Travel Charge</span>
+
+                  <strong>₹ {travelCharge}</strong>
+                </div>
+              </>
+            )}
+
             <div className="summary-total">
               <span>Total Amount</span>
 
-              <h2>₹ {Number(service.price).toLocaleString("en-IN")}</h2>
+              <h2>
+                ₹{" "}
+                {(Number(service.price) + travelCharge).toLocaleString("en-IN")}
+              </h2>
             </div>
           </div>
         </div>

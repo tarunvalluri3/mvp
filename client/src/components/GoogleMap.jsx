@@ -29,18 +29,18 @@ export default function GoogleMap({ latitude, longitude, zoom = 15 }) {
       }}
     >
       <Map
-        defaultCenter={{
-          lat: latitude,
-          lng: longitude,
+        center={{
+          lat: Number(latitude),
+          lng: Number(longitude),
         }}
-        defaultZoom={zoom}
-        gestureHandling="greedy"
+        zoom={zoom}
       >
         <Marker
           position={{
             lat: latitude,
             lng: longitude,
           }}
+          key={`${latitude}-${longitude}`}
         />
       </Map>
     </div>

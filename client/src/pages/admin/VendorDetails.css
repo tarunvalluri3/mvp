@@ -330,4 +330,22 @@
 
   background:#d97706;
 
+} 
+
+/* ==========================================
+   GOOGLE MAP
+========================================== */
+
+.vendor-map {
+  margin-top: 14px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.coordinates {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #6b7280;
 }

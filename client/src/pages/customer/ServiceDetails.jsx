@@ -5,6 +5,8 @@ import axios from "axios";
 import CustomerNavbar from "../../components/CustomerNavbar";
 import "./ServiceDetails.css";
 
+import GoogleMap from "../../components/GoogleMap";
+
 export default function ServiceDetails() {
   const { serviceId } = useParams();
 
@@ -108,8 +110,17 @@ export default function ServiceDetails() {
 
                 <strong>{service.vendor.address}</strong>
               </div>
-            </div>
+            </div>{" "}
+            <div className="info-card">
+              <h3>Business Location</h3>
 
+              <GoogleMap
+                latitude={service.vendor.latitude}
+                longitude={service.vendor.longitude}
+              />
+
+              <div className="location-address">{service.vendor.address}</div>
+            </div>
             <div className="info-card">
               <h3>Service Details</h3>
 

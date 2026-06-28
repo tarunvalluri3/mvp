@@ -7,6 +7,8 @@ import AdminLayout from "../../layouts/AdminLayout";
 
 import "./VendorDetails.css";
 
+import GoogleMap from "../../components/GoogleMap";
+
 export default function VendorDetails() {
   const { vendorId } = useParams();
 
@@ -162,6 +164,20 @@ export default function VendorDetails() {
             <div className="full-width">
               <label>Description</label>
               <span>{vendor.businessDescription}</span>
+            </div>
+            <div className="full-width">
+              <label>Business Location</label>
+
+              <div className="vendor-map">
+                <GoogleMap
+                  latitude={vendor.latitude}
+                  longitude={vendor.longitude}
+                />
+              </div>
+
+              <span className="coordinates">
+                {vendor.latitude.toFixed(6)}, {vendor.longitude.toFixed(6)}
+              </span>
             </div>
           </div>
         </div>

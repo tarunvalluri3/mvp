@@ -7,29 +7,30 @@ export default function GooglePlaceAutocomplete({
   const containerRef = useRef(null);
 
   useEffect(() => {
-    let autocompleteElement;
+    let autocomplete;
 
-    async function init() {
-      const { PlaceAutocompleteElement } =
-        await google.maps.importLibrary("places");
+    const initialize = async () => {
+      // Wait until Google Maps is loaded
+      if (!window.google?.maps) {
+        setTimeout(initialize, 100);
+        return;
+      }
 
-      autocompleteElement = new PlaceAutocompleteElement();
+      await window.google.maps.importLibrary("places");
 
-      autocompleteElement.setAttribute(
-        "placeholder",
-        placeholder
-      );
+      autocomplete = new window.google.maps.places.PlaceAutocompleteElement();
 
-      autocompleteElement.style.width = "100%";
+      autocomplete.setAttribute("placeholder", placeholder);
 
-      autocompleteElement.addEventListener(
+      autocomplete.style.width = "100%";
+
+      autocomplete.addEventListener(
         "gmp-select",
         async ({ placePrediction }) => {
           const place = placePrediction.toPlace();
 
           await place.fetchFields({
             fields: [
-              "displayName",
               "formattedAddress",
               "location",
             ],
@@ -43,21 +44,15 @@ export default function GooglePlaceAutocomplete({
         }
       );
 
-      containerRef.current.appendChild(
-        autocompleteElement
-      );
-    }
+      containerRef.current.innerHTML = "";
+      containerRef.current.appendChild(autocomplete);
+    };
 
-    init();
+    initialize();
 
     return () => {
-      if (
-        autocompleteElement &&
-        containerRef.current?.contains(autocompleteElement)
-      ) {
-        containerRef.current.removeChild(
-          autocompleteElement
-        );
+      if (autocomplete && containerRef.current?.contains(autocomplete)) {
+        containerRef.current.removeChild(autocomplete);
       }
     };
   }, [placeholder, onPlaceSelect]);
