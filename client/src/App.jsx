@@ -34,10 +34,15 @@ import ProtectedCustomerRoute from "./routes/ProtectedCustomerRoute";
 import ProtectedAdminRoute from "./routes/ProtectedAdminRoute";
 import ProtectedVendorRoute from "./routes/ProtectedVendorRoute";
 
+import TestMap from "./pages/TestMap";
+import TestAutocomplete from "./pages/TestAutocomplete";
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/test-map" element={<TestMap />} />
+        <Route path="/test-autocomplete" element={<TestAutocomplete />} />
         {/* Public */}
 
         <Route path="/" element={<LandingPage />} />
@@ -191,7 +196,7 @@ function App() {
               <AdminVendors />
             </ProtectedAdminRoute>
           }
-        /> 
+        />
 
         <Route
           path="/admin/vendors/:vendorId"

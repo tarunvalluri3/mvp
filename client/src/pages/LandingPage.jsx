@@ -68,26 +68,28 @@ function LandingPage() {
 
       <section className="hero">
         <div className="container hero-container">
+          {/* LEFT */}
+
           <div className="hero-content">
             <span className="hero-badge">
               Trusted Marketplace for Professional Services
             </span>
 
             <h1>
-              Connect with Trusted Professionals
+              Find Trusted Professionals
               <br />
-              for Every Service You Need.
+              For Every Service That Matters.
             </h1>
 
             <p>
-              From photographers and consultants to electricians and designers,
-              discover verified professionals, compare services, and book with
+              Discover verified professionals across photography, home services,
+              beauty, consulting and more. Compare services and book with
               confidence.
             </p>
 
             <div className="hero-buttons">
               <Link to={customerRoute} className="primary-btn">
-                Find Services
+                Explore Services
               </Link>
 
               <Link to={vendorRoute} className="secondary-btn">
@@ -95,41 +97,66 @@ function LandingPage() {
               </Link>
             </div>
 
-            <div className="hero-stats">
+            <div className="hero-trust">
               <div>
                 <h3>500+</h3>
+
                 <span>Professionals</span>
               </div>
 
               <div>
                 <h3>50+</h3>
+
                 <span>Categories</span>
               </div>
 
               <div>
                 <h3>5K+</h3>
+
                 <span>Bookings</span>
               </div>
             </div>
           </div>
 
-          <div className="hero-image">
-            <div className="service-card card card-1">
-              <span className="service-tag">Photography</span>
+          {/* RIGHT */}
+
+          <div className="hero-preview">
+            <div className="search-widget">
+              <small>Find Services</small>
+
               <h4>Wedding Photography</h4>
-              <p>★★★★★ 4.9 Rating</p>
+
+              <span>Hyderabad</span>
+
+              <button>Explore</button>
             </div>
 
-            <div className="service-card card card-2">
-              <span className="service-tag">Electrician</span>
-              <h4>Bridal Make Up</h4>
-              <p>★★★★★ 4.8 Rating</p>
+            <div className="service-widget">
+              <div className="service-top">
+                <span className="service-pill">Photography</span>
+
+                <span className="rating">★ 4.9</span>
+              </div>
+
+              <h3>Wedding Photography</h3>
+
+              <p>ABC Studio</p>
+
+              <div className="service-bottom">
+                <strong>₹25,000</strong>
+
+                <button>Book Now</button>
+              </div>
             </div>
 
-            <div className="service-card card card-3">
-              <span className="service-tag">Consulting</span>
-              <h4>Fashion Designing</h4>
-              <p>★★★★★ 5.0 Rating</p>
+            <div className="verified-widget">
+              <div className="verified-icon">✓</div>
+
+              <div>
+                <h4>Verified Provider</h4>
+
+                <p>Average response under 2 hours</p>
+              </div>
             </div>
           </div>
         </div>
