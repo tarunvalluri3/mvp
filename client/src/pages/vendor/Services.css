@@ -3,6 +3,10 @@
 ========================================== */
 
 .services-page {
+  max-width: 1400px;
+
+  margin: 0 auto;
+
   width: 100%;
 }
 
@@ -103,17 +107,24 @@
 ========================================== */
 
 .services-table-wrapper {
-  background: white;
+  background: #fff;
+
+  border: 1px solid #eceff3;
+
   border-radius: 18px;
-  border: 1px solid #e5e7eb;
+
   overflow-x: auto;
+
   -webkit-overflow-scrolling: touch;
+
   box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
 }
 
 .services-table {
-  width: 100%;
-  min-width: 760px;
+  width: max-content;
+
+  min-width: 100%;
+
   border-collapse: collapse;
 }
 
@@ -280,6 +291,10 @@
 }
 
 @media (max-width: 768px) {
+  .services-page {
+    overflow-x: hidden;
+  }
+
   .page-header h1 {
     font-size: 24px;
   }
@@ -290,20 +305,27 @@
 
   .services-toolbar {
     flex-direction: column;
+
     align-items: stretch;
+
     gap: 14px;
   }
 
   .search-input {
     width: 100%;
-    max-width: 100%;
+
     min-width: 100%;
+
+    max-width: 100%;
   }
 
   .toolbar-right {
     width: 100%;
+
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 12px;
   }
 
@@ -313,13 +335,16 @@
 
   .primary-btn {
     width: 100%;
+
     display: flex;
-    align-items: center;
+
     justify-content: center;
+
+    align-items: center;
   }
 
-  .service-description {
-    display: none;
+  .services-table {
+    min-width: 850px;
   }
 }
 

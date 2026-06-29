@@ -1,0 +1,23 @@
+.google-place-autocomplete {
+  width: 100%;
+}
+
+.google-place-autocomplete gmp-place-autocomplete {
+  width: 100%;
+  display: block;
+}
+
+.google-place-autocomplete gmp-place-autocomplete::part(input) {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.google-place-autocomplete gmp-place-autocomplete::part(input):focus {
+  border-color: var(--accent-color);
+}

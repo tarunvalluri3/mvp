@@ -7,6 +7,8 @@ import "./BookService.css";
 
 import GooglePlaceAutocomplete from "../../components/GooglePlaceAutocomplete";
 
+import GoogleMap from "../../components/GoogleMap";
+
 export default function BookService() {
   const { serviceId } = useParams();
 
@@ -104,6 +106,48 @@ export default function BookService() {
     });
   };
 
+  const currentLocation = () => {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported.");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        setCustomerLocation({
+          latitude,
+          longitude,
+        });
+
+        try {
+          const geocoder = new window.google.maps.Geocoder();
+
+          const { results } = await geocoder.geocode({
+            location: {
+              lat: latitude,
+              lng: longitude,
+            },
+          });
+
+          if (results.length > 0) {
+            setForm((prev) => ({
+              ...prev,
+              serviceAddress: results[0].formatted_address,
+            }));
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      () => {
+        alert("Unable to fetch your location.");
+      },
+    );
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -175,19 +219,6 @@ export default function BookService() {
                   required
                 />
               </div>
-              {/* 
-              <div className="customer-form-group">
-                <label>Service Address</label>
-
-                <textarea
-                  name="serviceAddress"
-                  className="customer-input customer-textarea"
-                  value={form.serviceAddress}
-                  onChange={handleChange}
-                  placeholder="Enter the service location..."
-                  required
-                />
-              </div> */}
 
               {service.serviceType === "BOTH" && (
                 <div className="customer-form-group">
@@ -218,7 +249,21 @@ export default function BookService() {
               )}
               {bookingMode === "ONSITE" && (
                 <div className="customer-form-group">
-                  <label>Service Address</label>
+                  <div className="location-header">
+                    <div>
+                      <label>Service Address</label>
+
+                      <p>Select where you want the service.</p>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="secondary-btn"
+                      onClick={currentLocation}
+                    >
+                      Use Current Location
+                    </button>
+                  </div>
 
                   <GooglePlaceAutocomplete
                     placeholder="Search your location..."
@@ -234,6 +279,21 @@ export default function BookService() {
                       });
                     }}
                   />
+
+                  {form.serviceAddress && (
+                    <>
+                      <p className="selected-address">
+                        📍 {form.serviceAddress}
+                      </p>
+
+                      <div className="booking-map">
+                        <GoogleMap
+                          latitude={customerLocation.latitude}
+                          longitude={customerLocation.longitude}
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
               )}
 
@@ -301,7 +361,7 @@ export default function BookService() {
                 </div>
 
                 <div className="summary-row">
-                  <span>Travel Charge</span>
+                  <span>Travel ({distance.toFixed(2)} km × ₹10)</span>
 
                   <strong>₹ {travelCharge}</strong>
                 </div>

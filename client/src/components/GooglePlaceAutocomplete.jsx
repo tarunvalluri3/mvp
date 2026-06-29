@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import "./GooglePlaceAutocomplete.css";
 
 export default function GooglePlaceAutocomplete({
   placeholder = "Search address...",
@@ -30,10 +31,7 @@ export default function GooglePlaceAutocomplete({
           const place = placePrediction.toPlace();
 
           await place.fetchFields({
-            fields: [
-              "formattedAddress",
-              "location",
-            ],
+            fields: ["formattedAddress", "location"],
           });
 
           onPlaceSelect({
@@ -41,7 +39,7 @@ export default function GooglePlaceAutocomplete({
             latitude: place.location.lat(),
             longitude: place.location.lng(),
           });
-        }
+        },
       );
 
       containerRef.current.innerHTML = "";
@@ -57,5 +55,5 @@ export default function GooglePlaceAutocomplete({
     };
   }, [placeholder, onPlaceSelect]);
 
-  return <div ref={containerRef} />;
-}
+  return <div ref={containerRef} className="google-place-autocomplete" />;
+} 
